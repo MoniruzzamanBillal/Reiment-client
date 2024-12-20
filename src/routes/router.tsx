@@ -1,6 +1,12 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { AddProduct, Dashboard, ManageProducts } from "@/pages";
+import {
+  AddCoupon,
+  AddProduct,
+  Dashboard,
+  ManageCoupon,
+  ManageProducts,
+} from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -27,6 +33,14 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/add-product",
             element: <AddProduct />,
+          },
+          {
+            path: "/dashboard/admin/manage-coupon",
+            element: <ManageCoupon />,
+          },
+          {
+            path: "/dashboard/add-coupon",
+            element: <AddCoupon />,
           },
         ],
       },

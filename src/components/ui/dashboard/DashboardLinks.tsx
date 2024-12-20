@@ -50,7 +50,7 @@ const DashboardLinks = () => {
     },
     {
       name: "Manage Coupon",
-      path: "/dashboard",
+      path: "/dashboard/admin/manage-coupon",
       icon: <CiBookmark className=" text-xl font-bold " />,
     },
     {
