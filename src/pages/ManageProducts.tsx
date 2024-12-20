@@ -9,7 +9,7 @@ const ManageProducts = () => {
         <h3 className="brand text-2xl font-medium mb-4 "> Manage Product </h3>
 
         <Button
-          onClick={() => (window.location.href = "/products/add")}
+          onClick={() => (window.location.href = "/dashboard/add-product")}
           className="mb-4 bg-prime100 hover:bg-prime100 cursor-pointer"
         >
           Add Product

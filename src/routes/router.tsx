@@ -1,6 +1,6 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Dashboard, ManageProducts } from "@/pages";
+import { AddProduct, Dashboard, ManageProducts } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/admin/manage-product",
             element: <ManageProducts />,
+          },
+          {
+            path: "/dashboard/add-product",
+            element: <AddProduct />,
           },
         ],
       },
