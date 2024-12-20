@@ -18,6 +18,11 @@ module.exports = {
     },
     extend: {
       colors: {
+        prime50: "#02B8A6",
+        prime100: "#009B94",
+        black100: "#020817",
+        black50: "#070F2B",
+        black20: "#040B24",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -76,7 +81,7 @@ module.exports = {
         xmd: "860px",
         xl: "1080px",
         xlm: "1165px",
-        xlg: "1380px",
+        xlg: "1320px",
       },
     },
   },
