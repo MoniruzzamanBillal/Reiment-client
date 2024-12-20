@@ -1,7 +1,7 @@
 import { TDashboardLinks } from "@/types/globalTypes";
-import { CiBookmark } from "react-icons/ci";
+import { CiBookmark, CiViewList } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
-
+import { RiCoupon3Fill } from "react-icons/ri";
 import { FaBoxOpen } from "react-icons/fa";
 
 const LinkItem = ({ link }: { link: TDashboardLinks }) => {
@@ -51,12 +51,12 @@ const DashboardLinks = () => {
     {
       name: "Manage Coupon",
       path: "/dashboard/admin/manage-coupon",
-      icon: <CiBookmark className=" text-xl font-bold " />,
+      icon: <RiCoupon3Fill className=" text-xl font-bold " />,
     },
     {
       name: "Manage Orders",
-      path: "/dashboard",
-      icon: <CiBookmark className=" text-xl font-bold " />,
+      path: "/dashboard/admin/manage-order",
+      icon: <CiViewList className=" text-xl font-bold " />,
     },
     {
       name: "Manage Payment",

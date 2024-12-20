@@ -5,6 +5,7 @@ import {
   AddProduct,
   Dashboard,
   ManageCoupon,
+  ManageOrder,
   ManageProducts,
 } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/add-coupon",
             element: <AddCoupon />,
+          },
+          {
+            path: "/dashboard/admin/manage-order",
+            element: <ManageOrder />,
           },
         ],
       },
