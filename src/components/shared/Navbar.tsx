@@ -1,12 +1,13 @@
-import Wrapper from "./Wrapper";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import { LuUser } from "react-icons/lu";
+import { RiCloseFill, RiMenu3Fill } from "react-icons/ri";
+import { Link, useNavigate } from "react-router-dom";
+import Wrapper from "./Wrapper";
 
 const Links = [
   { name: "Home", link: "/" },
-  { name: "Products", link: "/products" },
+  { name: "Products", link: "/" },
+  { name: "Contact us", link: "/" },
 ];
 
 const Navbar = () => {

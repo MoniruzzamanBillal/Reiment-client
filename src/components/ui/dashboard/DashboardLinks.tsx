@@ -1,6 +1,8 @@
-import { NavLink } from "react-router-dom";
-import { CiBookmark } from "react-icons/ci";
 import { TDashboardLinks } from "@/types/globalTypes";
+import { CiBookmark } from "react-icons/ci";
+import { NavLink } from "react-router-dom";
+
+import { FaBoxOpen } from "react-icons/fa";
 
 const LinkItem = ({ link }: { link: TDashboardLinks }) => {
   return (
@@ -34,35 +36,36 @@ const DashboardLinks = () => {
   //   },
   // ];
 
-  let links = [
+  const links = [
     {
       name: "Manage Users",
-      path: "/dashboard/admin/manage-user",
+      path: "/dashboard",
+      icon: <CiBookmark className=" text-xl font-bold " />,
+    },
+
+    {
+      name: "Manage Products",
+      path: "/dashboard/admin/manage-product",
+      icon: <FaBoxOpen className=" text-xl font-bold " />,
+    },
+    {
+      name: "Manage Coupon",
+      path: "/dashboard",
       icon: <CiBookmark className=" text-xl font-bold " />,
     },
     {
-      name: "Manage Shops",
-      path: "/dashboard/admin/manage-shop",
+      name: "Manage Orders",
+      path: "/dashboard",
       icon: <CiBookmark className=" text-xl font-bold " />,
     },
     {
-      name: "Categories",
-      path: "/dashboard/admin/categories",
-      icon: <CiBookmark className=" text-xl font-bold " />,
-    },
-    {
-      name: "Coupons",
-      path: "/dashboard/admin/manage-coupon",
-      icon: <CiBookmark className=" text-xl font-bold " />,
-    },
-    {
-      name: "Monitor Transaction ",
-      path: "/dashboard/admin/monitor-transaction",
+      name: "Manage Payment",
+      path: "/dashboard",
       icon: <CiBookmark className=" text-xl font-bold " />,
     },
     {
       name: "Monitor Review ",
-      path: "/dashboard/admin/monitor-review",
+      path: "/dashboard",
       icon: <CiBookmark className=" text-xl font-bold " />,
     },
   ];
