@@ -1,7 +1,9 @@
+import { UseGetUser } from "@/utils/SharedFunction";
 import { useState } from "react";
 import { LuUser } from "react-icons/lu";
 import { RiCloseFill, RiMenu3Fill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
 import Wrapper from "./Wrapper";
 
 const Links = [
@@ -11,8 +13,10 @@ const Links = [
 ];
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const userInfo = UseGetUser();
+
+  // console.log(userInfo);
 
   return (
     <div
@@ -82,31 +86,22 @@ const Navbar = () => {
             ))}
 
           <div className="buttonSection  md:ml-5 lg:ml-8  flex  items-center gap-x-0.5  ">
-            {/* {!userInfo ? (
-            <Link to={"/login"}>
-              <Button className=" -z-[1] text-xs sm:text-sm md:text-base bg-prime50 hover:bg-prime100 ">
-                Sign in
-              </Button>
-            </Link>
-          ) : (
-            <div className="relative">
-              <Link
-                to="/dashboard"
-                className="inline-block p-2 rounded-full bg-orange-100 cursor-pointe"
-              >
-                <LuUser className=" text-2xl font-bold text-gray-800 " />
+            {!userInfo ? (
+              <Link to={"/login"}>
+                <Button className=" -z-[1] text-xs sm:text-sm md:text-base bg-prime50 hover:bg-prime100 ">
+                  Sign in
+                </Button>
               </Link>
-            </div>
-          )} */}
-
-            <div className="relative">
-              <Link
-                to="/dashboard"
-                className="inline-block p-2 rounded-full bg-orange-100 cursor-pointe"
-              >
-                <LuUser className=" text-2xl font-bold text-gray-800 " />
-              </Link>
-            </div>
+            ) : (
+              <div className="relative">
+                <Link
+                  to="/dashboard"
+                  className="inline-block p-2 rounded-full bg-orange-100 cursor-pointe"
+                >
+                  <LuUser className=" text-2xl font-bold text-gray-800 " />
+                </Link>
+              </div>
+            )}
 
             {/* cart button  */}
 

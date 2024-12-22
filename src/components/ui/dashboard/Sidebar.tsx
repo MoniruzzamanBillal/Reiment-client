@@ -1,17 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { logOut } from "@/redux/features/auth/auth.slice";
+import { useAppDispatch } from "@/redux/hook";
 import { CiLogin } from "react-icons/ci";
 import { LuUser } from "react-icons/lu";
+import { Link, useNavigate } from "react-router-dom";
 import DashboardLinks from "./DashboardLinks";
 
 const Sidebar = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   // ! for logout
   const handleLogout = () => {
-    console.log("log out !!!");
-
-    //   dispatch(logOut());
+    dispatch(logOut());
     navigate("/");
   };
 

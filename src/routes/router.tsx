@@ -4,6 +4,7 @@ import {
   AddCoupon,
   AddProduct,
   Dashboard,
+  Login,
   ManageCoupon,
   ManageOrder,
   ManageProducts,
@@ -16,8 +17,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/about",
-        element: <p>about us </p>,
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "/dashboard",

@@ -1,8 +1,10 @@
 import { TDashboardLinks } from "@/types/globalTypes";
+import { userRoleConts } from "@/utils/constants";
+import { UseGetUser } from "@/utils/SharedFunction";
 import { CiBookmark, CiViewList } from "react-icons/ci";
-import { NavLink } from "react-router-dom";
-import { RiCoupon3Fill } from "react-icons/ri";
 import { FaBoxOpen } from "react-icons/fa";
+import { RiCoupon3Fill } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
 
 const LinkItem = ({ link }: { link: TDashboardLinks }) => {
   return (
@@ -17,94 +19,54 @@ const LinkItem = ({ link }: { link: TDashboardLinks }) => {
 
 const DashboardLinks = () => {
   // const userRole = GetUserRole();
+  const userInfo = UseGetUser();
 
-  // let links = [
-  //   {
-  //     name: "Home",
-  //     path: "/",
-  //     icon: <CiBookmark className="text-xl font-bold" />,
-  //   },
-  //   {
-  //     name: "Followed Shops",
-  //     path: "/dashboard/customer/followed-shops",
-  //     icon: <CiBookmark className="text-xl font-bold" />,
-  //   },
-  //   {
-  //     name: "Order History",
-  //     path: "/dashboard/customer/order-history",
-  //     icon: <CiBookmark className="text-xl font-bold" />,
-  //   },
-  // ];
+  // console.log(userInfo?.userRole);
 
-  const links = [
+  let links = [
     {
-      name: "Manage Users",
-      path: "/dashboard",
-      icon: <CiBookmark className=" text-xl font-bold " />,
-    },
-
-    {
-      name: "Manage Products",
-      path: "/dashboard/admin/manage-product",
-      icon: <FaBoxOpen className=" text-xl font-bold " />,
+      name: "Home",
+      path: "/",
+      icon: <CiBookmark className="text-xl font-bold" />,
     },
     {
-      name: "Manage Coupon",
-      path: "/dashboard/admin/manage-coupon",
-      icon: <RiCoupon3Fill className=" text-xl font-bold " />,
+      name: "Followed Shops",
+      path: "/dashboard/customer/followed-shops",
+      icon: <CiBookmark className="text-xl font-bold" />,
     },
     {
-      name: "Manage Orders",
-      path: "/dashboard/admin/manage-order",
-      icon: <CiViewList className=" text-xl font-bold " />,
-    },
-    {
-      name: "Manage Payment",
-      path: "/dashboard",
-      icon: <CiBookmark className=" text-xl font-bold " />,
-    },
-    {
-      name: "Monitor Review ",
-      path: "/dashboard",
-      icon: <CiBookmark className=" text-xl font-bold " />,
+      name: "Order History",
+      path: "/dashboard/customer/order-history",
+      icon: <CiBookmark className="text-xl font-bold" />,
     },
   ];
 
   // ! admin role links
-  // if (userRole === UserRoleConst.ADMIN) {
-  //   links = [
-  //     {
-  //       name: "Manage Users",
-  //       path: "/dashboard/admin/manage-user",
-  //       icon: <CiBookmark className=" text-xl font-bold " />,
-  //     },
-  //     {
-  //       name: "Manage Shops",
-  //       path: "/dashboard/admin/manage-shop",
-  //       icon: <CiBookmark className=" text-xl font-bold " />,
-  //     },
-  //     {
-  //       name: "Categories",
-  //       path: "/dashboard/admin/categories",
-  //       icon: <CiBookmark className=" text-xl font-bold " />,
-  //     },
-  //     {
-  //       name: "Coupons",
-  //       path: "/dashboard/admin/manage-coupon",
-  //       icon: <CiBookmark className=" text-xl font-bold " />,
-  //     },
-  //     {
-  //       name: "Monitor Transaction ",
-  //       path: "/dashboard/admin/monitor-transaction",
-  //       icon: <CiBookmark className=" text-xl font-bold " />,
-  //     },
-  //     {
-  //       name: "Monitor Review ",
-  //       path: "/dashboard/admin/monitor-review",
-  //       icon: <CiBookmark className=" text-xl font-bold " />,
-  //     },
-  //   ];
-  // }
+  if (userInfo?.userRole === userRoleConts.admin) {
+    links = [
+      {
+        name: "Manage Users",
+        path: "/dashboard",
+        icon: <CiBookmark className=" text-xl font-bold " />,
+      },
+
+      {
+        name: "Manage Products",
+        path: "/dashboard/admin/manage-product",
+        icon: <FaBoxOpen className=" text-xl font-bold " />,
+      },
+      {
+        name: "Manage Coupon",
+        path: "/dashboard/admin/manage-coupon",
+        icon: <RiCoupon3Fill className=" text-xl font-bold " />,
+      },
+      {
+        name: "Manage Orders",
+        path: "/dashboard/admin/manage-order",
+        icon: <CiViewList className=" text-xl font-bold " />,
+      },
+    ];
+  }
 
   return (
     <div>
