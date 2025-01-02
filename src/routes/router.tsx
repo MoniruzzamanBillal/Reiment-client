@@ -8,6 +8,7 @@ import {
   ManageCoupon,
   ManageOrder,
   ManageProducts,
+  UpdateProduct,
 } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/add-product",
             element: <AddProduct />,
+          },
+          {
+            path: "/dashboard/update-product/:id",
+            element: <UpdateProduct />,
           },
           {
             path: "/dashboard/admin/manage-coupon",

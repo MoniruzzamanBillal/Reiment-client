@@ -1,5 +1,6 @@
 import {
   ReimentForm,
+  ReimentImageInput,
   ReimentInput,
   ReimentTextArea,
   RementMultiSelect,
@@ -7,6 +8,7 @@ import {
 import { FormSubmitLoading } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { useAddProductMutation } from "@/redux/features/product/product.api";
+import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -31,6 +33,8 @@ const AddProduct = () => {
 
   const [addProduct, { isLoading: productAddingLoading }] =
     useAddProductMutation();
+
+  const [preview, setPreview] = useState<string | null>(null);
 
   // ! for adding product
   const handleAddProduct = async (data: FieldValues) => {
@@ -58,7 +62,7 @@ const AddProduct = () => {
     const formData = new FormData();
 
     formData.append("data", JSON.stringify(payload));
-    formData.append("image", productImage);
+    formData.append("prodImg", productImage);
 
     try {
       const taostId = toast.loading("Creating Product....");
@@ -166,16 +170,21 @@ const AddProduct = () => {
               />
 
               {/* Product Images */}
-              <ReimentInput
-                type="file"
+              <ReimentImageInput
                 label="Product Images :"
                 name="productImage"
+                preview={preview}
+                setPreview={setPreview}
               />
 
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="px-3 xsm:px-4 sm:px-5 md:px-6 font-semibold text-xs sm:text-sm md:text-base active:scale-95 duration-500 bg-prime50 hover:bg-prime100"
+                className={`px-3 xsm:px-4 sm:px-5 md:px-6 font-semibold text-xs sm:text-sm md:text-base active:scale-95 duration-500    ${
+                  productAddingLoading
+                    ? " cursor-not-allowed bg-gray-600 "
+                    : "bg-prime50 hover:bg-prime100  "
+                }   `}
               >
                 Add Product
               </Button>

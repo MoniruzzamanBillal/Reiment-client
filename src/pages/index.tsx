@@ -5,3 +5,4 @@ export { default as Login } from "./Login";
 export { default as ManageCoupon } from "./ManageCoupon";
 export { default as ManageOrder } from "./ManageOrder";
 export { default as ManageProducts } from "./ManageProducts";
+export { default as UpdateProduct } from "./UpdateProduct";

@@ -79,7 +79,7 @@ const ManageProducts = () => {
         <td className="p-4 text-center">{product.stockQuantity}</td>
 
         <td className="p-4 text-center">
-          <Link to={`/dashboard/vendor/update-products/${product.id}`}>
+          <Link to={`/dashboard/update-product/${product?._id}`}>
             <Button className="px-4 font-semibold text-sm bg-prime100 hover:bg-prime100 active:scale-95 duration-500">
               Update
             </Button>
