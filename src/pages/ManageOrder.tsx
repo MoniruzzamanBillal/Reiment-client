@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import DeleteModal from "@/components/shared/DeleteModal";
 import {
   FormSubmitLoading,
@@ -7,13 +6,17 @@ import {
 } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import {
+  approveCustomerOrder,
+  cancelCustomerOrder,
+} from "@/functions/OrderManagement.function";
+import {
   useApproveOrderMutation,
   useCancelOrderMutation,
   useGetAllOrderQuery,
 } from "@/redux/features/order/order.api";
 import { TOrder } from "@/types/order.types";
 import { format } from "date-fns";
-import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const alertMessage =
   " This action cannot be undone. This will cancel the Order .";
@@ -38,72 +41,12 @@ const ManageOrder = () => {
 
   // ! for canceling order
   const handleCancelOrder = async (id: string) => {
-    try {
-      const taostId = toast.loading("Canceling order....");
-
-      const result = await cancelOrder(id);
-
-      //  *  for any  error
-      if (result?.error) {
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          id: taostId,
-          duration: 1400,
-        });
-      }
-      // * for successful insertion
-      if (result?.data) {
-        const successMsg = result?.data?.message;
-
-        allOrderRefetch();
-
-        toast.success(successMsg, {
-          id: taostId,
-          duration: 1000,
-        });
-      }
-    } catch (error: any) {
-      console.log(error);
-      toast.error("Something went wrong while canceling order!!!", {
-        duration: 1400,
-      });
-    }
+    cancelCustomerOrder(id, allOrderRefetch, cancelOrder);
   };
 
   // ! for approving order
   const handleApproveOrder = async (id: string) => {
-    try {
-      const taostId = toast.loading("Approving order....");
-
-      const result = await approveOrder(id);
-
-      //  *  for any  error
-      if (result?.error) {
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          id: taostId,
-          duration: 1400,
-        });
-      }
-      // * for successful insertion
-      if (result?.data) {
-        const successMsg = result?.data?.message;
-
-        allOrderRefetch();
-
-        toast.success(successMsg, {
-          id: taostId,
-          duration: 1000,
-        });
-      }
-    } catch (error: any) {
-      console.log(error);
-      toast.error("Something went wrong while approving order!!!", {
-        duration: 1400,
-      });
-    }
+    approveCustomerOrder(id, allOrderRefetch, approveOrder);
   };
 
   if (orderDataLoading) {
@@ -173,7 +116,11 @@ const ManageOrder = () => {
         <td className="p-4 text-center">
           {/* detail button  */}
           <div className="approve">
-            <Button className=" bg-prime100 hover:bg-prime100 ">Detail</Button>
+            <Link to={`/dashboard/admin/order-detail/${order?._id}`}>
+              <Button className=" bg-prime100 hover:bg-prime100 ">
+                Detail
+              </Button>
+            </Link>
           </div>
         </td>
 
@@ -184,7 +131,7 @@ const ManageOrder = () => {
                 onClick={() => handleApproveOrder(order?._id)}
                 className=" bg-green-600 hover:bg-green-700 "
               >
-                Approve{" "}
+                Approve
               </Button>
             </div>
 

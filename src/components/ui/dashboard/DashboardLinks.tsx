@@ -61,14 +61,14 @@ const DashboardLinks = () => {
         icon: <FaBoxOpen className=" text-xl font-bold " />,
       },
       {
-        name: "Manage Coupon",
-        path: "/dashboard/admin/manage-coupon",
-        icon: <RiCoupon3Fill className=" text-xl font-bold " />,
-      },
-      {
         name: "Manage Orders",
         path: "/dashboard/admin/manage-order",
         icon: <CiViewList className=" text-xl font-bold " />,
+      },
+      {
+        name: "Manage Coupon",
+        path: "/dashboard/admin/manage-coupon",
+        icon: <RiCoupon3Fill className=" text-xl font-bold " />,
       },
     ];
   }

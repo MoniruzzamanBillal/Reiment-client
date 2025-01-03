@@ -9,6 +9,7 @@ import {
   ManageCoupon,
   ManageOrder,
   ManageProducts,
+  OrderDetail,
   UpdateProduct,
 } from "@/pages";
 import { userRoleConts } from "@/utils/constants";
@@ -59,8 +60,7 @@ const router = createBrowserRouter([
             path: "/dashboard/admin/manage-coupon",
             element: (
               <ProtectedRoute role={userRoleConts.admin}>
-                {" "}
-                <ManageCoupon />{" "}
+                <ManageCoupon />
               </ProtectedRoute>
             ),
           },
@@ -68,8 +68,7 @@ const router = createBrowserRouter([
             path: "/dashboard/add-coupon",
             element: (
               <ProtectedRoute role={userRoleConts.admin}>
-                {" "}
-                <AddCoupon />{" "}
+                <AddCoupon />
               </ProtectedRoute>
             ),
           },
@@ -77,8 +76,15 @@ const router = createBrowserRouter([
             path: "/dashboard/admin/manage-order",
             element: (
               <ProtectedRoute role={userRoleConts.admin}>
-                {" "}
-                <ManageOrder />{" "}
+                <ManageOrder />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "/dashboard/admin/order-detail/:id",
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                <OrderDetail />
               </ProtectedRoute>
             ),
           },
