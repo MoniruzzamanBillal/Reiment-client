@@ -11,6 +11,7 @@ import {
   TableDataLoading,
 } from "@/components/ui";
 import { Button } from "@/components/ui/button";
+import { manageUpdateProduct } from "@/functions/ProductManagement.function";
 import {
   useGetSingleProductsQuery,
   useUpdateProductMutation,
@@ -18,7 +19,6 @@ import {
 import { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "sonner";
 
 const sizeOptions = [
   { name: "M", value: "M" },
@@ -52,6 +52,10 @@ const UpdateProduct = () => {
   const [updateProduct, { isLoading: productUpdationLoading }] =
     useUpdateProductMutation();
 
+  const handleNavigate = () => {
+    navigate("/dashboard/admin/manage-product");
+  };
+
   // ! for updating product
   const handleUpdateProduct = async (data: FieldValues) => {
     const {
@@ -83,43 +87,12 @@ const UpdateProduct = () => {
       formData.append("prodImg", productImage);
     }
 
-    try {
-      const toastId = toast.loading("Updating Product....");
-
-      const result = await updateProduct({ formData, id });
-
-      console.log(result);
-
-      //  *  for any  error
-      if (result?.error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          id: toastId,
-          duration: 1400,
-        });
-      }
-
-      // * for successful insertion
-      if (result?.data) {
-        const successMsg = result?.data?.message;
-
-        toast.success(successMsg, {
-          id: toastId,
-          duration: 1000,
-        });
-
-        setTimeout(() => {
-          navigate("/dashboard/admin/manage-product");
-        }, 700);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong while updating product !!!", {
-        duration: 1400,
-      });
-    }
+    await manageUpdateProduct(
+      id as string,
+      formData,
+      updateProduct,
+      handleNavigate
+    );
   };
 
   defaultValues = {

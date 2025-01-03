@@ -5,13 +5,13 @@ import {
   TableDataLoading,
 } from "@/components/ui";
 import { Button } from "@/components/ui/button";
+import { manageDeleteProduct } from "@/functions/ProductManagement.function";
 import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
 } from "@/redux/features/product/product.api";
 import { TProduct } from "@/types/product.types";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 
 const alertMessage =
   " This action cannot be undone. This will permanently delete the Product .";
@@ -33,38 +33,7 @@ const ManageProducts = () => {
 
   // ! for deleting product
   const handleDeleteProduct = async (prodId: string) => {
-    try {
-      const taostId = toast.loading("Deleting product....");
-      const result = await deleteProduct(prodId);
-
-      //  *  for any  error
-      if (result?.error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          id: taostId,
-          duration: 1400,
-        });
-      }
-
-      // * for successful insertion
-      if (result?.data) {
-        const successMsg = result?.data?.message;
-
-        allProductRefetch();
-
-        toast.success(successMsg, {
-          id: taostId,
-          duration: 1000,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong while deleting product!!!", {
-        duration: 1400,
-      });
-    }
+    await manageDeleteProduct(prodId, allProductRefetch, deleteProduct);
   };
 
   if (productDataLoading) {
@@ -130,7 +99,7 @@ const ManageProducts = () => {
         <td className="p-4 text-center">{product.material}</td>
         <td className="p-4 text-center">{product.stockQuantity}</td>
 
-        <td className="p-4 text-center flex gap-x-3">
+        <td className="p-4 text-center flex   gap-x-3 ">
           {/* update section  */}
           <div className="updateSection">
             <Link to={`/dashboard/update-product/${product?._id}`}>

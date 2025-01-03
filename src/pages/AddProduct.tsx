@@ -7,11 +7,11 @@ import {
 } from "@/components/form";
 import { FormSubmitLoading } from "@/components/ui";
 import { Button } from "@/components/ui/button";
+import { manageAddProduct } from "@/functions/ProductManagement.function";
 import { useAddProductMutation } from "@/redux/features/product/product.api";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 const sizeOptions = [
   { name: "M", value: "M" },
@@ -30,11 +30,14 @@ const colorOptions = [
 
 const AddProduct = () => {
   const navigate = useNavigate();
-
   const [addProduct, { isLoading: productAddingLoading }] =
     useAddProductMutation();
 
   const [preview, setPreview] = useState<string | null>(null);
+
+  const handleNavigate = () => {
+    navigate("/dashboard/admin/manage-product");
+  };
 
   // ! for adding product
   const handleAddProduct = async (data: FieldValues) => {
@@ -64,43 +67,7 @@ const AddProduct = () => {
     formData.append("data", JSON.stringify(payload));
     formData.append("prodImg", productImage);
 
-    try {
-      const taostId = toast.loading("Creating Product....");
-
-      const result = await addProduct(formData);
-
-      console.log(result);
-
-      //  *  for any  error
-      if (result?.error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          id: taostId,
-          duration: 1400,
-        });
-      }
-
-      // * for successful insertion
-      if (result?.data) {
-        const successMsg = result?.data?.message;
-
-        toast.success(successMsg, {
-          id: taostId,
-          duration: 1000,
-        });
-
-        setTimeout(() => {
-          navigate("/dashboard/admin/manage-product");
-        }, 700);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong while crating product !!!", {
-        duration: 1400,
-      });
-    }
+    await manageAddProduct(formData, addProduct, handleNavigate);
   };
 
   return (

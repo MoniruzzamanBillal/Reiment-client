@@ -37,16 +37,16 @@ const ManageOrder = () => {
   const [cancelOrder, { isLoading: cancelOrderLoading }] =
     useCancelOrderMutation();
 
-  console.log(allOrder?.data);
+  // console.log(allOrder?.data);
 
   // ! for canceling order
   const handleCancelOrder = async (id: string) => {
-    cancelCustomerOrder(id, allOrderRefetch, cancelOrder);
+    await cancelCustomerOrder(id, allOrderRefetch, cancelOrder);
   };
 
   // ! for approving order
   const handleApproveOrder = async (id: string) => {
-    approveCustomerOrder(id, allOrderRefetch, approveOrder);
+    await approveCustomerOrder(id, allOrderRefetch, approveOrder);
   };
 
   if (orderDataLoading) {
@@ -108,7 +108,7 @@ const ManageOrder = () => {
               : order?.status === "canceled"
               ? "text-red-600"
               : "text-green-600"
-          }`}
+          }  `}
         >
           {order?.status}
         </td>

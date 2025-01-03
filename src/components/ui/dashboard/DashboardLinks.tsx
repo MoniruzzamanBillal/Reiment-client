@@ -3,7 +3,6 @@ import { userRoleConts } from "@/utils/constants";
 import { UseGetUser } from "@/utils/SharedFunction";
 import { CiBookmark, CiViewList } from "react-icons/ci";
 import { FaBoxOpen } from "react-icons/fa";
-import { RiCoupon3Fill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 
 const LinkItem = ({ link }: { link: TDashboardLinks }) => {
@@ -65,11 +64,11 @@ const DashboardLinks = () => {
         path: "/dashboard/admin/manage-order",
         icon: <CiViewList className=" text-xl font-bold " />,
       },
-      {
-        name: "Manage Coupon",
-        path: "/dashboard/admin/manage-coupon",
-        icon: <RiCoupon3Fill className=" text-xl font-bold " />,
-      },
+      // {
+      //   name: "Manage Coupon",
+      //   path: "/dashboard/admin/manage-coupon",
+      //   icon: <RiCoupon3Fill className=" text-xl font-bold " />,
+      // },
     ];
   }
 
