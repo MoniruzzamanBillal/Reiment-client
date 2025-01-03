@@ -1,5 +1,6 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import {
   AddCoupon,
   AddProduct,
@@ -10,6 +11,7 @@ import {
   ManageProducts,
   UpdateProduct,
 } from "@/pages";
+import { userRoleConts } from "@/utils/constants";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -31,27 +33,54 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/admin/manage-product",
-            element: <ManageProducts />,
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                <ManageProducts />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/dashboard/add-product",
-            element: <AddProduct />,
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                <AddProduct />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/dashboard/update-product/:id",
-            element: <UpdateProduct />,
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                <UpdateProduct />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/dashboard/admin/manage-coupon",
-            element: <ManageCoupon />,
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                {" "}
+                <ManageCoupon />{" "}
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/dashboard/add-coupon",
-            element: <AddCoupon />,
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                {" "}
+                <AddCoupon />{" "}
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/dashboard/admin/manage-order",
-            element: <ManageOrder />,
+            element: (
+              <ProtectedRoute role={userRoleConts.admin}>
+                {" "}
+                <ManageOrder />{" "}
+              </ProtectedRoute>
+            ),
           },
         ],
       },

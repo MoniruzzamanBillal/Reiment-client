@@ -23,23 +23,28 @@ const DashboardLinks = () => {
 
   // console.log(userInfo?.userRole);
 
-  let links = [
-    {
-      name: "Home",
-      path: "/",
-      icon: <CiBookmark className="text-xl font-bold" />,
-    },
-    {
-      name: "Followed Shops",
-      path: "/dashboard/customer/followed-shops",
-      icon: <CiBookmark className="text-xl font-bold" />,
-    },
-    {
-      name: "Order History",
-      path: "/dashboard/customer/order-history",
-      icon: <CiBookmark className="text-xl font-bold" />,
-    },
-  ];
+  let links;
+  // !  user links
+
+  if (userInfo?.userRole === userRoleConts.user) {
+    links = [
+      {
+        name: "Home",
+        path: "/",
+        icon: <CiBookmark className="text-xl font-bold" />,
+      },
+      {
+        name: "Followed Shops",
+        path: "/dashboard/customer/followed-shops",
+        icon: <CiBookmark className="text-xl font-bold" />,
+      },
+      {
+        name: "Order History",
+        path: "/dashboard/customer/order-history",
+        icon: <CiBookmark className="text-xl font-bold" />,
+      },
+    ];
+  }
 
   // ! admin role links
   if (userInfo?.userRole === userRoleConts.admin) {

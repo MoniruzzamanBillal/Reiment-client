@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DeleteModal from "@/components/shared/DeleteModal";
 import {
   FormSubmitLoading,
@@ -37,13 +38,41 @@ const ManageOrder = () => {
 
   // ! for canceling order
   const handleCancelOrder = async (id: string) => {
-    console.log(id);
+    try {
+      const taostId = toast.loading("Canceling order....");
+
+      const result = await cancelOrder(id);
+
+      //  *  for any  error
+      if (result?.error) {
+        const errorMessage = (result?.error as any)?.data?.message;
+        console.log(errorMessage);
+        toast.error(errorMessage, {
+          id: taostId,
+          duration: 1400,
+        });
+      }
+      // * for successful insertion
+      if (result?.data) {
+        const successMsg = result?.data?.message;
+
+        allOrderRefetch();
+
+        toast.success(successMsg, {
+          id: taostId,
+          duration: 1000,
+        });
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error("Something went wrong while canceling order!!!", {
+        duration: 1400,
+      });
+    }
   };
 
   // ! for approving order
   const handleApproveOrder = async (id: string) => {
-    console.log(id);
-
     try {
       const taostId = toast.loading("Approving order....");
 
@@ -51,7 +80,6 @@ const ManageOrder = () => {
 
       //  *  for any  error
       if (result?.error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const errorMessage = (result?.error as any)?.data?.message;
         console.log(errorMessage);
         toast.error(errorMessage, {
@@ -131,9 +159,13 @@ const ManageOrder = () => {
         </td>
 
         <td
-          className={` p-4 text-center font-semibold ${
-            order?.status === "pending" ? " text-red-600 " : "text-green-600 "
-          } `}
+          className={`p-4 text-center font-semibold ${
+            order?.status === "pending"
+              ? "text-orange-500"
+              : order?.status === "canceled"
+              ? "text-red-600"
+              : "text-green-600"
+          }`}
         >
           {order?.status}
         </td>
