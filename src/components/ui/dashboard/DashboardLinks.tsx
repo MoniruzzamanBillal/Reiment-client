@@ -44,11 +44,11 @@ const DashboardLinks = () => {
   // ! admin role links
   if (userInfo?.userRole === userRoleConts.admin) {
     links = [
-      {
-        name: "Manage Users",
-        path: "/dashboard",
-        icon: <CiBookmark className=" text-xl font-bold " />,
-      },
+      // {
+      //   name: "Manage Users",
+      //   path: "/dashboard",
+      //   icon: <CiBookmark className=" text-xl font-bold " />,
+      // },
 
       {
         name: "Manage Products",
