@@ -1,3 +1,4 @@
+export { default as AddAddress } from "./AddAddress";
 export { default as AddCoupon } from "./AddCoupon";
 export { default as AddProduct } from "./AddProduct";
 export { default as AllProducts } from "./AllProducts";
@@ -10,6 +11,7 @@ export { default as ManageProducts } from "./ManageProducts";
 export { default as OrderDetail } from "./OrderDetail";
 export { default as ProductDetail } from "./ProductDetail";
 export { default as RecentProducts } from "./RecentProducts";
+export { default as UpdateAddress } from "./UpdateAddress";
 export { default as UpdateProduct } from "./UpdateProduct";
 export { default as UpdateProfile } from "./UpdateProfile";
 export { default as UserCart } from "./UserCart";

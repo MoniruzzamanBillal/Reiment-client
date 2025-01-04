@@ -2,6 +2,7 @@ import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import {
+  AddAddress,
   AddCoupon,
   AddProduct,
   AllProducts,
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/update-profile/:id",
             element: <UpdateProfile />,
+          },
+          {
+            path: "/dashboard/add-address",
+            element: <AddAddress />,
           },
           {
             path: "/dashboard/admin/manage-product",
