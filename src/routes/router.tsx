@@ -15,6 +15,7 @@ import {
   ProductDetail,
   RecentProducts,
   UpdateProduct,
+  UpdateProfile,
   UserCart,
 } from "@/pages";
 import { userRoleConts } from "@/utils/constants";
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard",
             element: <Dashboard />,
+          },
+          {
+            path: "/dashboard/update-profile/:id",
+            element: <UpdateProfile />,
           },
           {
             path: "/dashboard/admin/manage-product",
