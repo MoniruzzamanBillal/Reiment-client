@@ -15,6 +15,7 @@ import {
   ProductDetail,
   RecentProducts,
   UpdateProduct,
+  UserCart,
 } from "@/pages";
 import { userRoleConts } from "@/utils/constants";
 import { createBrowserRouter } from "react-router-dom";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/product/detail/:id",
         element: <ProductDetail />,
+      },
+      {
+        path: "/cart",
+        element: <UserCart />,
       },
       {
         path: "/dashboard",

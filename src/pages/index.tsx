@@ -11,3 +11,4 @@ export { default as OrderDetail } from "./OrderDetail";
 export { default as ProductDetail } from "./ProductDetail";
 export { default as RecentProducts } from "./RecentProducts";
 export { default as UpdateProduct } from "./UpdateProduct";
+export { default as UserCart } from "./UserCart";

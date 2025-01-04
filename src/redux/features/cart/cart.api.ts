@@ -25,9 +25,48 @@ const cartApi = baseApi.injectEndpoints({
       invalidatesTags: ["userCart"],
     }),
 
+    // ! for removing item from cart
+    removeCartItem: builder.mutation({
+      query: (payload) => {
+        return {
+          url: "/cart/remove-cart-item",
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+
+    // ! for adding item quantity
+    addItemQuantity: builder.mutation({
+      query: (payload) => {
+        return {
+          url: "/cart/add-cart-item-quantity",
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+
+    // ! for removing item quantity
+    decreaseItemQuantity: builder.mutation({
+      query: (payload) => {
+        return {
+          url: "/cart/decrease-cart-item-quantity",
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+
     //
   }),
 });
 
 //
-export const { useAddToCartMutation, useGetUserCartQuery } = cartApi;
+export const {
+  useAddToCartMutation,
+  useGetUserCartQuery,
+  useRemoveCartItemMutation,
+  useAddItemQuantityMutation,
+  useDecreaseItemQuantityMutation,
+} = cartApi;

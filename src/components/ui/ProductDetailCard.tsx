@@ -132,7 +132,7 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
                       product?.stockQuantity === 0
                         ? "cursor-not-allowed bg-gray-400"
                         : "bg-prime50 hover:bg-prime100 active:bg-prime50"
-                    }`}
+                    }  `}
                     onClick={() => handleAddToCart(product)}
                   >
                     {product?.stockQuantity === 0
