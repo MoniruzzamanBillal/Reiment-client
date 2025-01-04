@@ -4,7 +4,9 @@ import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import {
   AddCoupon,
   AddProduct,
+  AllProducts,
   Dashboard,
+  HomePage,
   Login,
   ManageCoupon,
   ManageOrder,
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/products",
+        element: <AllProducts />,
       },
       {
         path: "/dashboard",

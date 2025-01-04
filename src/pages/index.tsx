@@ -1,6 +1,8 @@
 export { default as AddCoupon } from "./AddCoupon";
 export { default as AddProduct } from "./AddProduct";
+export { default as AllProducts } from "./AllProducts";
 export { default as Dashboard } from "./Dashboard";
+export { default as HomePage } from "./HomePage";
 export { default as Login } from "./Login";
 export { default as ManageCoupon } from "./ManageCoupon";
 export { default as ManageOrder } from "./ManageOrder";

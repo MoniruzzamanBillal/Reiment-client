@@ -1,15 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/auth.slice";
+import recentProductReducer from "./features/recentProducts/recentproduct.slice";
 
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { baseApi } from "./api/baseApi";
@@ -18,13 +19,22 @@ const persistConfig = {
   key: "auth",
   storage,
 };
+const recentProductConfig = {
+  key: "recentProduct",
+  storage,
+};
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
+const persistRecentReducer = persistReducer(
+  recentProductConfig,
+  recentProductReducer
+);
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedReducer,
+    recentProduct: persistRecentReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

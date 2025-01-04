@@ -4,9 +4,19 @@ const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // ! for getting all products
     getAllProducts: builder.query({
-      query: () => {
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          Object.entries(args).forEach(([Key, value]) => {
+            if (value) {
+              params.append(Key, value.toString());
+            }
+          });
+        }
+
         return {
-          url: `/product/all-products`,
+          url: `/product/all-products?${params.toString()}`,
           method: "GET",
         };
       },

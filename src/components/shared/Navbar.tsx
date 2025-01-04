@@ -8,7 +8,7 @@ import Wrapper from "./Wrapper";
 
 const Links = [
   { name: "Home", link: "/" },
-  { name: "Products", link: "/" },
+  { name: "Products", link: "/products" },
   { name: "Contact us", link: "/" },
 ];
 
