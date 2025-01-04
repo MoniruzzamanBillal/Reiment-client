@@ -97,10 +97,9 @@ const UserCart = () => {
   };
 
   // ! function for deleting cart item
-  const handleDeleteCartItem = async (item: any) => {
+  const handleDeleteCartItem = async (item: TCartItem) => {
     const payload = {
-      cartId: item?.cartId,
-      cartItemId: item?.id,
+      productId: item?.product?._id,
     };
 
     try {
