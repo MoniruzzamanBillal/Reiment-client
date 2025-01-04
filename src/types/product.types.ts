@@ -1,6 +1,5 @@
 export type TProduct = {
   color: string[];
-
   detail: string;
   isDeleted: boolean;
   material: string;
@@ -9,6 +8,5 @@ export type TProduct = {
   productImage: string;
   size: string[];
   stockQuantity: number;
-
   _id: string;
 };

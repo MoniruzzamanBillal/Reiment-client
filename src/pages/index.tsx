@@ -8,4 +8,6 @@ export { default as ManageCoupon } from "./ManageCoupon";
 export { default as ManageOrder } from "./ManageOrder";
 export { default as ManageProducts } from "./ManageProducts";
 export { default as OrderDetail } from "./OrderDetail";
+export { default as ProductDetail } from "./ProductDetail";
+export { default as RecentProducts } from "./RecentProducts";
 export { default as UpdateProduct } from "./UpdateProduct";

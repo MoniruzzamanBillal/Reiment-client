@@ -1,5 +1,6 @@
 import Wrapper from "@/components/shared/Wrapper";
 import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
+import { TProduct } from "@/types/product.types";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard";
 
@@ -29,7 +30,9 @@ const HomeProducts = () => {
 
         <div className="products grid grid-cols-1 sm:grid-cols-2 xmd:grid-cols-3 gap-x-5 gap-y-8">
           {allProducts?.data &&
-            allProducts?.data?.map((product: any) => <ProductCard />)}
+            allProducts?.data?.map((product: TProduct) => (
+              <ProductCard product={product} />
+            ))}
         </div>
       </Wrapper>
     </div>

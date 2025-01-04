@@ -153,7 +153,9 @@ const AllProducts = () => {
                   <NoProduct />
                 ) : (
                   allProducts?.data &&
-                  allProducts?.data?.map((product) => <ProductCard />)
+                  allProducts?.data?.map((product) => (
+                    <ProductCard product={product} />
+                  ))
                 )}
               </div>
             </div>

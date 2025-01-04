@@ -12,6 +12,8 @@ import {
   ManageOrder,
   ManageProducts,
   OrderDetail,
+  ProductDetail,
+  RecentProducts,
   UpdateProduct,
 } from "@/pages";
 import { userRoleConts } from "@/utils/constants";
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <AllProducts />,
+      },
+      {
+        path: "/recent-products",
+        element: <RecentProducts />,
+      },
+      {
+        path: "/product/detail/:id",
+        element: <ProductDetail />,
       },
       {
         path: "/dashboard",

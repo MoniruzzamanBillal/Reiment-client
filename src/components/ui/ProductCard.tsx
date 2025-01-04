@@ -1,12 +1,14 @@
+import { TProduct } from "@/types/product.types";
 import { BsCart3 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Button } from "./button";
 
-const ProductCard = () => {
+const ProductCard = ({ product }: { product: TProduct }) => {
+  // console.log(product);
   // console.log(product?.discount);
   return (
     <div className="ProductCardContainer bg-white border border-gray-300 shadow-md group  rounded-md overflow-auto hover:shadow-lg hover:scale-[1.01] duration-200 ">
-      <Link to={`/product/detail/123`}>
+      <Link to={`/product/detail/${product?._id}`}>
         <div className="ProductCardWrapper flex flex-col justify-between gap-y-1  ">
           {/* product image section  */}
           <div className="prodImg  h-[15rem]  ">

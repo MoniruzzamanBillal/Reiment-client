@@ -1,5 +1,7 @@
+import { useGetUserCartQuery } from "@/redux/features/cart/cart.api";
 import { UseGetUser } from "@/utils/SharedFunction";
 import { useState } from "react";
+import { FiShoppingCart } from "react-icons/fi";
 import { LuUser } from "react-icons/lu";
 import { RiCloseFill, RiMenu3Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -9,6 +11,7 @@ import Wrapper from "./Wrapper";
 const Links = [
   { name: "Home", link: "/" },
   { name: "Products", link: "/products" },
+  { name: "Recent Products", link: "/recent-products" },
   { name: "Contact us", link: "/" },
 ];
 
@@ -17,6 +20,8 @@ const Navbar = () => {
   const userInfo = UseGetUser();
 
   // console.log(userInfo);
+
+  const { data: cartData } = useGetUserCartQuery(undefined);
 
   return (
     <div
@@ -105,19 +110,19 @@ const Navbar = () => {
 
             {/* cart button  */}
 
-            {/* <Link to={"/cart"}>
-            {userInfo?.userRole == "CUSTOMER" && (
-              <div className="cartBtn  pl-0 md:pl-2 mr-3 md:pr-0  cursor-pointer text-2xl  relative ">
-                <FiShoppingCart />
+            <Link to={"/cart"}>
+              {userInfo?.userRole == "user" && (
+                <div className="cartBtn  pl-0 md:pl-2 mr-3 md:pr-0  cursor-pointer text-2xl  relative ">
+                  <FiShoppingCart />
 
-                {cartData?.data?.cartItem?.length > 0 && (
-                  <div className="number text-gray-100 text-center size-5 bg-prime100 text-xs rounded-full  absolute transform -translate-x-1/2  -translate-y-1/2  top-[0rem] left-[2rem] ">
-                    {cartData?.data?.cartItem?.length}
-                  </div>
-                )}
-              </div>
-            )}
-          </Link> */}
+                  {cartData?.data?.cartItems?.length > 0 && (
+                    <div className="number text-gray-100 text-center size-5 bg-prime100 text-xs rounded-full  absolute transform -translate-x-1/2  -translate-y-1/2  top-[0rem] left-[2rem] ">
+                      {cartData?.data?.cartItems?.length}
+                    </div>
+                  )}
+                </div>
+              )}
+            </Link>
 
             {/* cart button  */}
 

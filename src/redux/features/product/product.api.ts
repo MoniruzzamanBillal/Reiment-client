@@ -23,6 +23,17 @@ const productApi = baseApi.injectEndpoints({
       providesTags: ["allProducts"],
     }),
 
+    // ! for getting all recent products
+    getRecentProduct: builder.query({
+      query: (payload) => {
+        return {
+          url: `/product/recent-products`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+
     // ! for getting single product
     getSingleProducts: builder.query({
       query: (id: string) => {
@@ -79,4 +90,5 @@ export const {
   useGetSingleProductsQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useGetRecentProductQuery,
 } = productApi;
