@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   // console.log(userData?.data);
 
-  console.log(userAddress?.data);
+  // console.log(userAddress?.data[0]);
 
   return (
     <>
@@ -38,20 +38,32 @@ const Dashboard = () => {
               <h1 className=" font-semibold ">User Address : </h1>
 
               <p>
-                district : <span className=" font-semibold "> name </span>
+                district :{" "}
+                <span className=" font-semibold ">
+                  {userAddress?.data[0]?.district}
+                </span>
               </p>
               <p>
-                division : <span className=" font-semibold "> name </span>
+                division :{" "}
+                <span className=" font-semibold ">
+                  {userAddress?.data[0]?.division}{" "}
+                </span>
               </p>
               <p>
-                street : <span className=" font-semibold "> name </span>
+                street :
+                <span className=" font-semibold ">
+                  {userAddress?.data[0]?.street}
+                </span>
               </p>
 
               <p>
-                postalCode : <span className=" font-semibold "> name </span>
+                postalCode :{" "}
+                <span className=" font-semibold ">
+                  {userAddress?.data[0]?.postalCode}{" "}
+                </span>
               </p>
 
-              <Link to={"/dashboard/add-address"}>
+              <Link to={"/dashboard/update-address"}>
                 <Button className=" mt-4 bg-prime50 hover:bg-prime100 ">
                   Update Address
                 </Button>

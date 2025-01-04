@@ -15,6 +15,7 @@ import {
   OrderDetail,
   ProductDetail,
   RecentProducts,
+  UpdateAddress,
   UpdateProduct,
   UpdateProfile,
   UserCart,
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/add-address",
             element: <AddAddress />,
+          },
+          {
+            path: "/dashboard/update-address",
+            element: <UpdateAddress />,
           },
           {
             path: "/dashboard/admin/manage-product",

@@ -25,7 +25,7 @@ const AddAddress = () => {
     const { street, district, division, postalCode } = data;
 
     const payload = {
-      user: userData?.data?._id, // Get user ID from logged-in user data
+      user: userData?.data?._id,
       street,
       district,
       division,
