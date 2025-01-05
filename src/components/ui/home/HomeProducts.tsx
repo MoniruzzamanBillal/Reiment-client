@@ -11,7 +11,7 @@ const HomeProducts = () => {
   console.log(allProducts?.data);
 
   return (
-    <div className="HomeProductsContainer">
+    <div className="HomeProductsContainer bg-gray-100 py-8 ">
       <Wrapper className="HomeProductsWrapper">
         {/* heading section  */}
         <div className="headingSection flex justify-between items-center ">
