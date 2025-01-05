@@ -16,6 +16,7 @@ export { default as OrderDetail } from "./OrderDetail";
 export { default as OrderSuccess } from "./OrderSuccess";
 export { default as ProductDetail } from "./ProductDetail";
 export { default as RecentProducts } from "./RecentProducts";
+export { default as Register } from "./Register";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as UpdateAddress } from "./UpdateAddress";
 export { default as UpdateProduct } from "./UpdateProduct";

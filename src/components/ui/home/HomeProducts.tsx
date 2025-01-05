@@ -3,6 +3,7 @@ import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
 import { TProduct } from "@/types/product.types";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard";
+import ProductSkeleton from "../ProductCardLoadingSceleton";
 
 const HomeProducts = () => {
   const { data: allProducts, isLoading: allProductsLoading } =
@@ -29,6 +30,11 @@ const HomeProducts = () => {
         {/* heading section  */}
 
         <div className="products grid grid-cols-1 xsm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-8">
+          {allProductsLoading &&
+            Array.from({ length: 4 })?.map((_, index) => (
+              <ProductSkeleton key={index} />
+            ))}
+
           {allProducts?.data &&
             allProducts?.data?.map((product: TProduct) => (
               <ProductCard product={product} />

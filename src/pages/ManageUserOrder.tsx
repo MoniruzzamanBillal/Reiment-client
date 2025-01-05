@@ -27,7 +27,7 @@ const ManageUserOrder = () => {
     refetch: allOrderRefetch,
   } = useGetAllUserOrderQuery(undefined);
 
-  console.log(allUserOrder?.data);
+  // console.log(allUserOrder?.data);
 
   const [cancelOrder, { isLoading: cancelOrderLoading }] =
     useCancelOrderMutation();

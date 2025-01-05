@@ -20,6 +20,7 @@ import {
   OrderSuccess,
   ProductDetail,
   RecentProducts,
+  Register,
   ResetPassword,
   UpdateAddress,
   UpdateProduct,
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/sign-up",
+        element: <Register />,
       },
       {
         path: "/forgotPassword",

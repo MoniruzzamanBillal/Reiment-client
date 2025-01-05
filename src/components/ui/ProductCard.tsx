@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAddToCartMutation } from "@/redux/features/cart/cart.api";
 import { TProduct } from "@/types/product.types";
 import { UseGetUser } from "@/utils/SharedFunction";

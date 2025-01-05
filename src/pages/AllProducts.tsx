@@ -1,6 +1,7 @@
 import Wrapper from "@/components/shared/Wrapper";
 import { NoProduct, ProductCard } from "@/components/ui";
 import { Input } from "@/components/ui/input";
+import ProductSkeleton from "@/components/ui/ProductCardLoadingSceleton";
 import ProductsFilter from "@/components/ui/ProductsFilter";
 import {
   Select,
@@ -147,6 +148,11 @@ const AllProducts = () => {
             <div className="productsContent  py-3 px-4 ">
               {/* all products  */}
               <div className="allProducts grid grid-cols-1 sm:grid-cols-2 xmd:grid-cols-3 gap-x-5 gap-y-8 ">
+                {allProductsLoading &&
+                  Array.from({ length: 6 })?.map((_, index) => (
+                    <ProductSkeleton key={index} />
+                  ))}
+
                 {allProducts?.data?.length === 0 ? (
                   <NoProduct />
                 ) : (
