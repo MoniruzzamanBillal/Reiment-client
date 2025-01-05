@@ -40,6 +40,39 @@ export const orderDirectFromProduct = async (
   }
 };
 
+// ! for adding to cart
+export const handleAddProductToCart = async (
+  payload: {
+    userId: string;
+    productId: string;
+    quantity: number;
+    price: number;
+  },
+  addToCart: any
+) => {
+  try {
+    const toastId = toast.loading("Adding to cart ");
+
+    const result = await addToCart(payload);
+
+    //  *  for any  error
+    if (result?.error) {
+      const errorMessage = (result?.error as any)?.data?.message;
+      console.log(errorMessage);
+      toast.error(errorMessage, {
+        duration: 1400,
+        id: toastId,
+      });
+    }
+    if (result?.data?.success) {
+      toast.success(result?.data?.message, { duration: 1500, id: toastId });
+    }
+  } catch (error: any) {
+    console.log(error);
+    toast.error("Something went wrong while adding to cart ");
+  }
+};
+
 // ! for adding cart quantity
 export const addCartQuantity = async (
   payload: { productId: string; quantity: number },

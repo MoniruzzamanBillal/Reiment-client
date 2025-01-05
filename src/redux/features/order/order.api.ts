@@ -13,6 +13,17 @@ const orderApi = baseApi.injectEndpoints({
       providesTags: ["allOrder"],
     }),
 
+    // ! for getting all order
+    getAllUserOrder: builder.query({
+      query: () => {
+        return {
+          url: `/order/user-order`,
+          method: "GET",
+        };
+      },
+      providesTags: ["allUserOrder"],
+    }),
+
     // ! for getting single order data
     getSingleData: builder.query({
       query: (id: string) => {
@@ -78,4 +89,5 @@ export const {
   useCancelOrderMutation,
   useOrderFromCartMutation,
   useDirectOrderMutation,
+  useGetAllUserOrderQuery,
 } = orderApi;

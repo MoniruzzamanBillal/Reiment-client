@@ -15,6 +15,7 @@ import {
   useCancelOrderMutation,
   useGetSingleDataQuery,
 } from "@/redux/features/order/order.api";
+import { UseGetUser } from "@/utils/SharedFunction";
 
 import { useParams } from "react-router-dom";
 
@@ -24,7 +25,9 @@ const alertMessage =
 const OrderDetail = () => {
   const { id } = useParams();
 
-  //   console.log(id);
+  const userInfo = UseGetUser();
+
+  console.log(userInfo);
 
   const {
     data: orderData,
@@ -82,27 +85,28 @@ const OrderDetail = () => {
                 </h1>
               </div>
 
-              {orderData?.data?.status === "pending" && (
-                <div className="headRight flex gap-x-2 ">
-                  <div className="approve">
-                    <Button
-                      onClick={() => handleApproveOrder(orderData?.data?._id)}
-                      className=" bg-green-600 hover:bg-green-700 "
-                    >
-                      Approve
-                    </Button>
-                  </div>
+              {userInfo?.userRole === "admin" &&
+                orderData?.data?.status === "pending" && (
+                  <div className="headRight flex gap-x-2 ">
+                    <div className="approve">
+                      <Button
+                        onClick={() => handleApproveOrder(orderData?.data?._id)}
+                        className=" bg-green-600 hover:bg-green-700 "
+                      >
+                        Approve
+                      </Button>
+                    </div>
 
-                  <div className="cancelOrderBtn">
-                    <DeleteModal
-                      handleDeleteFunction={handleCancelOrder}
-                      id={orderData?.data?._id}
-                      btnText="cancel"
-                      alertMessage={alertMessage}
-                    />
+                    <div className="cancelOrderBtn">
+                      <DeleteModal
+                        handleDeleteFunction={handleCancelOrder}
+                        id={orderData?.data?._id}
+                        btnText="cancel"
+                        alertMessage={alertMessage}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
 
             <div className="dataBody mb-4 w-[90%] flex justify-between  ">

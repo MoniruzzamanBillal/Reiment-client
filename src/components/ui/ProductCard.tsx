@@ -7,9 +7,6 @@ import { toast } from "sonner";
 import { Button } from "./button";
 
 const ProductCard = ({ product }: { product: TProduct }) => {
-  // console.log(product);
-  // console.log(product?.discount);
-
   const userInfo = UseGetUser();
 
   // console.log(userInfo);
@@ -59,12 +56,22 @@ const ProductCard = ({ product }: { product: TProduct }) => {
       <Link to={`/product/detail/${product?._id}`}>
         <div className="ProductCardWrapper flex flex-col justify-between gap-y-1  ">
           {/* product image section  */}
-          <div className="prodImg  h-[15rem]  ">
+          <div className="prodImg  h-[15rem] relative  ">
             <img
               className=" w-full h-full "
               src={product?.productImage}
               alt=""
             />
+
+            <div
+              className={`productAvailability text-sm absolute top-0 left-0 font-semibold ${
+                product?.stockQuantity > 0
+                  ? " text-green-600  "
+                  : "text-red-600"
+              } `}
+            >
+              {product?.stockQuantity > 0 ? "Available" : "Unavailable"}
+            </div>
           </div>
 
           <div className="prodDes mb-1 p-3 group-hover:text-prime100  ">

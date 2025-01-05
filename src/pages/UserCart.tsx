@@ -44,7 +44,7 @@ const UserCart = () => {
   const [orderFromCart, { isLoading: orderingLoading }] =
     useOrderFromCartMutation();
 
-  // console.log(cartData?.data);
+  console.log(cartData?.data?.cartItems?.length);
 
   const totalCartPrice = calculateCartPrice(cartData?.data?.cartItems);
 
@@ -122,7 +122,7 @@ const UserCart = () => {
             <div className="mb-5 sm:mb-8 flex flex-col  sm:divide-y sm:border-t sm:border-b">
               {/* product - start  */}
 
-              {!cartData?.data || cartData?.data?.cartItem?.length === 0 ? (
+              {!cartData?.data || cartData?.data?.cartItems?.length === 0 ? (
                 <NoCartItem />
               ) : (
                 <div className="cartItemRender p-3  bg-white shadow-md rounded-md border border-gray-300 ">
@@ -144,7 +144,7 @@ const UserCart = () => {
 
             {/* bottom section strts  */}
             {/* totals - start  */}
-            {!cartData?.data ? (
+            {!cartData?.data?.cartItems?.length ? (
               ""
             ) : (
               <div className="flex flex-col items-end gap-4  ">

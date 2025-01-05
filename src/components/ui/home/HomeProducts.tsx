@@ -6,7 +6,7 @@ import ProductCard from "../ProductCard";
 
 const HomeProducts = () => {
   const { data: allProducts, isLoading: allProductsLoading } =
-    useGetAllProductsQuery({ limit: 6 });
+    useGetAllProductsQuery({ limit: 8 });
 
   console.log(allProducts?.data);
 
@@ -28,7 +28,7 @@ const HomeProducts = () => {
         </div>
         {/* heading section  */}
 
-        <div className="products grid grid-cols-1 sm:grid-cols-2 xmd:grid-cols-3 gap-x-5 gap-y-8">
+        <div className="products grid grid-cols-1 xsm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-8">
           {allProducts?.data &&
             allProducts?.data?.map((product: TProduct) => (
               <ProductCard product={product} />

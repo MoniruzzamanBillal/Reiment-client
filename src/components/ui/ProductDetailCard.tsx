@@ -1,4 +1,7 @@
-import { orderDirectFromProduct } from "@/functions/Cart.function";
+import {
+  handleAddProductToCart,
+  orderDirectFromProduct,
+} from "@/functions/Cart.function";
 import { useGetUserAddressQuery } from "@/redux/features/address/address.api";
 import { useAddToCartMutation } from "@/redux/features/cart/cart.api";
 import { useDirectOrderMutation } from "@/redux/features/order/order.api";
@@ -19,14 +22,13 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
   const { data: userAddress, refetch: userAddressRefetch } =
     useGetUserAddressQuery(undefined);
 
-  // console.log(userInfo);
-  console.log(userAddress?.data[0]);
-
   const [addToCart, { isLoading: productAddToCartLoading }] =
     useAddToCartMutation();
 
   const [directOrder, { isLoading: itemOrderingLoading }] =
     useDirectOrderMutation();
+
+  // console.log(product?.stockQuantity);
 
   // ! for adding item in cart
   const handleAddToCart = async (product: TProduct) => {
@@ -42,27 +44,7 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
       price: product?.price,
     };
 
-    try {
-      const toastId = toast.loading("Adding to cart ");
-
-      const result = await addToCart(payload);
-
-      //  *  for any  error
-      if (result?.error) {
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          duration: 1400,
-          id: toastId,
-        });
-      }
-      if (result?.data?.success) {
-        toast.success(result?.data?.message, { duration: 1500, id: toastId });
-      }
-    } catch (error: any) {
-      console.log(error);
-      toast.error("Something went wrong while adding to cart ");
-    }
+    await handleAddProductToCart(payload, addToCart);
   };
 
   // ! for ordering item directly
@@ -109,6 +91,16 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
             <div className="space-y-4">
               <div className="relative overflow-hidden rounded-lg bg-gray-100">
                 <GlassZoomImage imageSrc={product?.productImage} />
+
+                <div
+                  className={`productAvailability absolute top-0 left-0 font-semibold ${
+                    product?.stockQuantity > 0
+                      ? " text-green-600  "
+                      : "text-red-600"
+                  } `}
+                >
+                  {product?.stockQuantity > 0 ? "Available" : "Unavailable"}
+                </div>
               </div>
             </div>
             {/* images - end  */}

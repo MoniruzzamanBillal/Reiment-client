@@ -8,6 +8,7 @@ export { default as Login } from "./Login";
 export { default as ManageCoupon } from "./ManageCoupon";
 export { default as ManageOrder } from "./ManageOrder";
 export { default as ManageProducts } from "./ManageProducts";
+export { default as ManageUserOrder } from "./ManageUserOrder";
 export { default as OrderDetail } from "./OrderDetail";
 export { default as OrderSuccess } from "./OrderSuccess";
 export { default as ProductDetail } from "./ProductDetail";

@@ -12,6 +12,7 @@ import {
   ManageCoupon,
   ManageOrder,
   ManageProducts,
+  ManageUserOrder,
   OrderDetail,
   OrderSuccess,
   ProductDetail,
@@ -129,6 +130,22 @@ const router = createBrowserRouter([
             path: "/dashboard/admin/order-detail/:id",
             element: (
               <ProtectedRoute role={userRoleConts.admin}>
+                <OrderDetail />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "/dashboard/user/manage-order",
+            element: (
+              <ProtectedRoute role={userRoleConts.user}>
+                <ManageUserOrder />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "/dashboard/user/order-detail/:id",
+            element: (
+              <ProtectedRoute role={userRoleConts.user}>
                 <OrderDetail />
               </ProtectedRoute>
             ),
