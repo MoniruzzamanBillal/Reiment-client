@@ -15,8 +15,6 @@ const ProductDetail = () => {
     refetch: productDataRefetch,
   } = useGetSingleProductsQuery(id as string, { skip: !id });
 
-  // console.log(productData?.data);
-
   //
   useEffect(() => {
     if (productData?.data?._id) {

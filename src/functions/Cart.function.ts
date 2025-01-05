@@ -2,6 +2,44 @@
 import { QueryActionCreatorResult } from "@reduxjs/toolkit/query";
 import { toast } from "sonner";
 
+// ! for ordering directly from product
+export const orderDirectFromProduct = async (
+  payload: { user: string; quantity: number; product: string; price: number },
+  directOrder: any
+) => {
+  const taostId = toast.loading("Placing order ....");
+
+  try {
+    const result = await directOrder(payload);
+
+    console.log(result?.data);
+
+    if (result?.error) {
+      const errorMessage = (result?.error as any)?.data?.message;
+      console.log(errorMessage);
+      toast.error(errorMessage, {
+        id: taostId,
+        duration: 1400,
+      });
+    }
+
+    if (result?.data) {
+      const successMsg = result?.data?.message;
+      const paymentUrl = result?.data?.data;
+
+      toast.success(successMsg, {
+        id: taostId,
+        duration: 2000,
+      });
+
+      window.location.href = paymentUrl;
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong while ordering!!!", { duration: 1400 });
+  }
+};
+
 // ! for adding cart quantity
 export const addCartQuantity = async (
   payload: { productId: string; quantity: number },

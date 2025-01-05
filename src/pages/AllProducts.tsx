@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
+import { TProduct } from "@/types/product.types";
 import useDebounce from "@/utils/useDebounce";
 import { useEffect, useState } from "react";
 
@@ -30,11 +31,7 @@ const AllProducts = () => {
       price: pprice,
     });
 
-  console.log(allProducts?.data);
-
-  //   console.log(sort);
-  //   console.log(pprice);
-  //   console.log(debounceTerm);
+  // console.log(allProducts?.data);
 
   //   ! for reseting all filter category
   const handleAddReset = () => {
@@ -154,7 +151,7 @@ const AllProducts = () => {
                   <NoProduct />
                 ) : (
                   allProducts?.data &&
-                  allProducts?.data?.map((product) => (
+                  allProducts?.data?.map((product: TProduct) => (
                     <ProductCard product={product} />
                   ))
                 )}

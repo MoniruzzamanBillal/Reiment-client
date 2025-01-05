@@ -12,6 +12,8 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 
   const userInfo = UseGetUser();
 
+  // console.log(userInfo);
+
   const [addToCart, { isLoading: productAddToCartLoading }] =
     useAddToCartMutation();
 
@@ -28,8 +30,6 @@ const ProductCard = ({ product }: { product: TProduct }) => {
       quantity: 1,
       price: product?.price,
     };
-
-    console.log(payload);
 
     try {
       const toastId = toast.loading("Adding to cart ");

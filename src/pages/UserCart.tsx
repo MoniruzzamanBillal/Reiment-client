@@ -44,13 +44,7 @@ const UserCart = () => {
   const [orderFromCart, { isLoading: orderingLoading }] =
     useOrderFromCartMutation();
 
-  //   console.log(cartData?.data);
-  //   console.log(cartData?.data?.cartItems);
-  // console.log(location?.state);
-  // console.log(location?.pathname);
-  // console.log(userAddress?.data);
-  // console.log(userAddress?.data?.length);
-  console.log(cartData?.data);
+  // console.log(cartData?.data);
 
   const totalCartPrice = calculateCartPrice(cartData?.data?.cartItems);
 
@@ -96,8 +90,6 @@ const UserCart = () => {
         state: location?.pathname,
       });
     } else {
-      console.log("item ordered successfully!!!");
-
       const payload = {
         address: userAddress?.data[0]?._id,
       };

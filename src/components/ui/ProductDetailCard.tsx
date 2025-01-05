@@ -1,31 +1,46 @@
+import { orderDirectFromProduct } from "@/functions/Cart.function";
+import { useGetUserAddressQuery } from "@/redux/features/address/address.api";
 import { useAddToCartMutation } from "@/redux/features/cart/cart.api";
+import { useDirectOrderMutation } from "@/redux/features/order/order.api";
 import { TProduct } from "@/types/product.types";
 import { UseGetUser } from "@/utils/SharedFunction";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "./button";
 import FormSubmitLoading from "./FormSubmitLoading";
 import GlassZoomImage from "./GlassZoomImage";
 
 const ProductDetailCard = ({ product }: { product: TProduct }) => {
-  //   console.log(product);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const userInfo = UseGetUser();
+  const { data: userAddress, refetch: userAddressRefetch } =
+    useGetUserAddressQuery(undefined);
 
   // console.log(userInfo);
+  console.log(userAddress?.data[0]);
 
   const [addToCart, { isLoading: productAddToCartLoading }] =
     useAddToCartMutation();
 
+  const [directOrder, { isLoading: itemOrderingLoading }] =
+    useDirectOrderMutation();
+
   // ! for adding item in cart
   const handleAddToCart = async (product: TProduct) => {
+    if (!userInfo) {
+      toast.warning("Login for adding item in cart!!!");
+      return;
+    }
+
     const payload = {
       userId: userInfo?.userId,
       productId: product?._id,
       quantity: 1,
       price: product?.price,
     };
-
-    console.log(payload);
 
     try {
       const toastId = toast.loading("Adding to cart ");
@@ -50,9 +65,42 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
     }
   };
 
+  // ! for ordering item directly
+  const handleOrderItem = async (product: TProduct) => {
+    console.log("order done !!!");
+    if (!userInfo) {
+      toast.warning("Login for ordering this item!!!");
+      return;
+    }
+
+    if (userAddress?.data?.length < 1) {
+      toast.warning("Add address for ordering items !!!");
+
+      navigate("/dashboard/add-address", {
+        state: location?.pathname,
+      });
+    } else {
+      const payload = {
+        address: userAddress?.data[0]?._id,
+        user: userInfo?.userId,
+        product: product?._id,
+        quantity: 1,
+        price: product?.price,
+      };
+
+      await orderDirectFromProduct(payload, directOrder);
+    }
+  };
+
+  useEffect(() => {
+    userAddressRefetch();
+  }, [userAddress, userAddressRefetch]);
+
   return (
     <>
-      {productAddToCartLoading && <FormSubmitLoading />}
+      {(productAddToCartLoading || itemOrderingLoading) && (
+        <FormSubmitLoading />
+      )}
 
       <div className="ProductDetailCardContainer">
         <div className="mx-auto max-w-screen-lg px-4 md:px-8">
@@ -123,38 +171,49 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
 
               {/* {/* buttons - start  */}
               <div className="   ">
-                <div className="btnSection flex items-center gap-x-4 ">
-                  {/*  */}
+                {userInfo?.userRole === "user" ? (
+                  <div className="btnSection flex items-center gap-x-4 ">
+                    {/*  */}
 
-                  <Button
-                    disabled={product?.stockQuantity === 0 ? true : false}
-                    className={`   text-center text-sm font-semibold text-white transition duration-100  ${
-                      product?.stockQuantity === 0
-                        ? "cursor-not-allowed bg-gray-400"
-                        : "bg-prime50 hover:bg-prime100 active:bg-prime50"
-                    }  `}
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    {product?.stockQuantity === 0
-                      ? "Out of Stock"
-                      : `  Add to cart  `}
-                  </Button>
+                    <Button
+                      disabled={product?.stockQuantity === 0 ? true : false}
+                      className={`   text-center text-sm font-semibold text-white transition duration-100  ${
+                        product?.stockQuantity === 0
+                          ? "cursor-not-allowed bg-gray-800"
+                          : "bg-prime50 hover:bg-prime100 active:bg-prime50"
+                      }  `}
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      {product?.stockQuantity === 0
+                        ? "Out of Stock"
+                        : `  Add to cart  `}
+                    </Button>
 
-                  {/*  */}
+                    {/*  */}
 
-                  <Button
-                    disabled={product?.stockQuantity === 0 ? true : false}
-                    className={`   text-center text-sm font-semibold text-white transition duration-100  ${
-                      product?.stockQuantity === 0
-                        ? "cursor-not-allowed bg-gray-400"
-                        : "bg-prime50 hover:bg-prime100 active:bg-prime50"
-                    }`}
-                  >
-                    Buy Now
-                  </Button>
+                    <Button
+                      disabled={product?.stockQuantity === 0 ? true : false}
+                      onClick={() => handleOrderItem(product)}
+                      className={`   text-center text-sm font-semibold text-white transition duration-100  ${
+                        product?.stockQuantity === 0
+                          ? "cursor-not-allowed bg-gray-800"
+                          : "bg-prime50 hover:bg-prime100 active:bg-prime50"
+                      }`}
+                    >
+                      Buy Now
+                    </Button>
 
-                  {/*  */}
-                </div>
+                    {/*  */}
+                  </div>
+                ) : (
+                  <div className="updateSection">
+                    <Link to={`/dashboard/update-product/${product?._id}`}>
+                      <Button className="px-4 font-semibold text-sm bg-prime100 hover:bg-prime100 active:scale-95 duration-500">
+                        Update
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </div>
               {/* buttons - end  */}
 
