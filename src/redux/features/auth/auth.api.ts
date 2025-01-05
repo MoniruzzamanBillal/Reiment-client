@@ -13,9 +13,34 @@ const authApi = baseApi.injectEndpoints({
       },
     }),
 
+    // ! for sending reset link
+    sendResetLink: builder.mutation({
+      query: (email: string) => {
+        return {
+          url: `/auth/reset-link/${email}`,
+          method: "PATCH",
+        };
+      },
+    }),
+
+    // ! for reseting password
+    resetPassword: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/auth/reset-password`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+
     //
   }),
 });
 
 //
-export const { useLogInMutation } = authApi;
+export const {
+  useLogInMutation,
+  useSendResetLinkMutation,
+  useResetPasswordMutation,
+} = authApi;

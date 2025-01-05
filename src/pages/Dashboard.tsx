@@ -34,41 +34,43 @@ const Dashboard = () => {
               </Link>
             )}
 
-            <div className="address text-lg ">
-              <h1 className=" font-semibold ">User Address : </h1>
+            {userAddress?.data?.length >= 1 && (
+              <div className="address text-lg ">
+                <h1 className=" font-semibold ">User Address : </h1>
 
-              <p>
-                district :{" "}
-                <span className=" font-semibold ">
-                  {userAddress?.data[0]?.district}
-                </span>
-              </p>
-              <p>
-                division :{" "}
-                <span className=" font-semibold ">
-                  {userAddress?.data[0]?.division}{" "}
-                </span>
-              </p>
-              <p>
-                street :
-                <span className=" font-semibold ">
-                  {userAddress?.data[0]?.street}
-                </span>
-              </p>
+                <p>
+                  district :{" "}
+                  <span className=" font-semibold ">
+                    {userAddress?.data[0]?.district}
+                  </span>
+                </p>
+                <p>
+                  division :{" "}
+                  <span className=" font-semibold ">
+                    {userAddress?.data[0]?.division}{" "}
+                  </span>
+                </p>
+                <p>
+                  street :
+                  <span className=" font-semibold ">
+                    {userAddress?.data[0]?.street}
+                  </span>
+                </p>
 
-              <p>
-                postalCode :{" "}
-                <span className=" font-semibold ">
-                  {userAddress?.data[0]?.postalCode}{" "}
-                </span>
-              </p>
+                <p>
+                  postalCode :{" "}
+                  <span className=" font-semibold ">
+                    {userAddress?.data[0]?.postalCode}{" "}
+                  </span>
+                </p>
 
-              <Link to={"/dashboard/update-address"}>
-                <Button className=" mt-4 bg-prime50 hover:bg-prime100 ">
-                  Update Address
-                </Button>
-              </Link>
-            </div>
+                <Link to={"/dashboard/update-address"}>
+                  <Button className=" mt-4 bg-prime50 hover:bg-prime100 ">
+                    Update Address
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

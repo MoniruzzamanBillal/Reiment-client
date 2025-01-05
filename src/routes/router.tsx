@@ -8,6 +8,8 @@ import {
   AddProduct,
   AllProducts,
   Dashboard,
+  EmailResetConfirmation,
+  ForgotPassword,
   HomePage,
   Login,
   ManageCoupon,
@@ -18,6 +20,7 @@ import {
   OrderSuccess,
   ProductDetail,
   RecentProducts,
+  ResetPassword,
   UpdateAddress,
   UpdateProduct,
   UpdateProfile,
@@ -34,6 +37,18 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/forgotPassword",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password/:token",
+        element: <ResetPassword />,
+      },
+      {
+        path: "/email-reset-confirmation/:email",
+        element: <EmailResetConfirmation />,
       },
       {
         path: "/",
