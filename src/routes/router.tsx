@@ -2,6 +2,7 @@ import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import {
+  AboutUs,
   AddAddress,
   AddCoupon,
   AddProduct,
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
+
       {
         path: "/products",
         element: <AllProducts />,
@@ -47,12 +49,20 @@ const router = createBrowserRouter([
         element: <RecentProducts />,
       },
       {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
         path: "/product/detail/:id",
         element: <ProductDetail />,
       },
       {
         path: "/cart",
-        element: <UserCart />,
+        element: (
+          <ProtectedRoute role={userRoleConts.user}>
+            <UserCart />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/order-success",

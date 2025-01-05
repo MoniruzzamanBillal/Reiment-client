@@ -12,7 +12,7 @@ const Links = [
   { name: "Home", link: "/" },
   { name: "Products", link: "/products" },
   { name: "Recent Products", link: "/recent-products" },
-  { name: "Contact us", link: "/" },
+  { name: "About us", link: "/about-us" },
 ];
 
 const Navbar = () => {

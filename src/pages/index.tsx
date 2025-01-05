@@ -1,3 +1,4 @@
+export { default as AboutUs } from "./AboutUs";
 export { default as AddAddress } from "./AddAddress";
 export { default as AddCoupon } from "./AddCoupon";
 export { default as AddProduct } from "./AddProduct";

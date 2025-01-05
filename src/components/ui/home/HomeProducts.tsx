@@ -8,7 +8,7 @@ const HomeProducts = () => {
   const { data: allProducts, isLoading: allProductsLoading } =
     useGetAllProductsQuery({ limit: 8 });
 
-  console.log(allProducts?.data);
+  // console.log(allProducts?.data);
 
   return (
     <div className="HomeProductsContainer bg-gray-100 py-8 ">
@@ -21,7 +21,7 @@ const HomeProducts = () => {
 
           <Link
             to={"/products"}
-            className=" font-medium text-prime100 hover:bg-prime100 hover:text-gray-50 py-2 px-4 rounded-md "
+            className=" font-semibold text-prime100 hover:underline hover:text-prime100 py-2 px-4 rounded-md "
           >
             Show more
           </Link>

@@ -1,4 +1,9 @@
-import { HeroBanner, HomeProducts, Testimonial } from "@/components/ui/home";
+import {
+  FAQsection,
+  HeroBanner,
+  HomeProducts,
+  Testimonial,
+} from "@/components/ui/home";
 
 const HomePage = () => {
   return (
@@ -6,14 +11,7 @@ const HomePage = () => {
       <HeroBanner />
       <HomeProducts />
       <Testimonial />
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
-      <h1> HomePage</h1>
+      <FAQsection />
     </div>
   );
 };
