@@ -6,17 +6,22 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAddAddressMutation } from "@/redux/features/address/address.api";
 import { useGetLoggedInUserQuery } from "@/redux/features/user/user.api";
 import { FieldValues } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const AddAddress = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { data: userData, isLoading: userLoading } =
     useGetLoggedInUserQuery(undefined);
   const [addAddress, { isLoading: addressLoading }] = useAddAddressMutation();
 
   //   console.log(userData?.data);
+
+  console.log(location?.state);
+  // console.log(location?.pathname);
+  // console.log(location);
 
   let content;
 
@@ -53,7 +58,7 @@ const AddAddress = () => {
         });
 
         setTimeout(() => {
-          navigate("/dashboard"); // Navigate to the dashboard after success
+          navigate(location?.state ? location?.state : "/dashboard");
         }, 700);
       }
     } catch (error) {

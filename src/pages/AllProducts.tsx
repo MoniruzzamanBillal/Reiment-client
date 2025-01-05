@@ -40,6 +40,7 @@ const AllProducts = () => {
   const handleAddReset = () => {
     setSearchTerm("");
     setPprice(null);
+    setSortBy("");
   };
 
   useEffect(() => {

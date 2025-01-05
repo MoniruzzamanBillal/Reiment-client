@@ -45,6 +45,28 @@ const orderApi = baseApi.injectEndpoints({
       invalidatesTags: ["allOrder"],
     }),
 
+    // ! for ordering from cart page
+    orderFromCart: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/order/cart-order`,
+          method: "POST",
+          body: payload,
+        };
+      },
+    }),
+
+    // ! for ordering directly from product detail
+    directOrder: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/order/direct-order`,
+          method: "POST",
+          body: payload,
+        };
+      },
+    }),
+
     //
   }),
 });
@@ -54,4 +76,6 @@ export const {
   useGetSingleDataQuery,
   useApproveOrderMutation,
   useCancelOrderMutation,
+  useOrderFromCartMutation,
+  useDirectOrderMutation,
 } = orderApi;

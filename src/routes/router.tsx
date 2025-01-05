@@ -13,6 +13,7 @@ import {
   ManageOrder,
   ManageProducts,
   OrderDetail,
+  OrderSuccess,
   ProductDetail,
   RecentProducts,
   UpdateAddress,
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <UserCart />,
+      },
+      {
+        path: "/order-success",
+        element: <OrderSuccess />,
       },
       {
         path: "/dashboard",

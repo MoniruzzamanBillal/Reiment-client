@@ -1,22 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CartItemCard, FormSubmitLoading, NoCartItem } from "@/components/ui";
 import { Button } from "@/components/ui/button";
+import {
+  addCartQuantity,
+  deleteCartItem,
+  orderItemFromCart,
+  reduceCartQuantity,
+} from "@/functions/Cart.function";
+import { useGetUserAddressQuery } from "@/redux/features/address/address.api";
 import {
   useAddItemQuantityMutation,
   useDecreaseItemQuantityMutation,
   useGetUserCartQuery,
   useRemoveCartItemMutation,
 } from "@/redux/features/cart/cart.api";
+import { useOrderFromCartMutation } from "@/redux/features/order/order.api";
 import { TCartItem } from "@/types/cart.types";
 import { calculateCartPrice } from "@/utils/calculateCartPrice";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const UserCart = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     data: cartData,
     isLoading: cartDataLoading,
     refetch: refetchCart,
   } = useGetUserCartQuery(undefined);
+
+  const { data: userAddress, refetch: userAddressRefetch } =
+    useGetUserAddressQuery(undefined);
 
   const [addItemQuantity, { isLoading: cartItemAddingLoading }] =
     useAddItemQuantityMutation();
@@ -27,8 +41,16 @@ const UserCart = () => {
   const [removeCartItem, { isLoading: removeCartItemLoading }] =
     useRemoveCartItemMutation();
 
+  const [orderFromCart, { isLoading: orderingLoading }] =
+    useOrderFromCartMutation();
+
   //   console.log(cartData?.data);
   //   console.log(cartData?.data?.cartItems);
+  // console.log(location?.state);
+  // console.log(location?.pathname);
+  // console.log(userAddress?.data);
+  // console.log(userAddress?.data?.length);
+  console.log(cartData?.data);
 
   const totalCartPrice = calculateCartPrice(cartData?.data?.cartItems);
 
@@ -39,29 +61,7 @@ const UserCart = () => {
       quantity: 1,
     };
 
-    try {
-      const toastId = toast.loading("Adding to cart quantity!! ");
-
-      const result = await addItemQuantity(payload);
-
-      //  *  for any  error
-      if (result?.error) {
-        const errorMessage = (result?.error as any)?.data?.message;
-        console.log(errorMessage);
-        toast.error(errorMessage, {
-          duration: 1400,
-          id: toastId,
-        });
-      }
-
-      if (result?.data?.success) {
-        toast.success(result?.data?.message, { duration: 1500, id: toastId });
-        refetchCart();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong !!!", { duration: 1200 });
-    }
+    await addCartQuantity(payload, addItemQuantity, refetchCart);
   };
 
   // ! function for reducing cart quantity
@@ -75,25 +75,7 @@ const UserCart = () => {
       quantity: 1,
     };
 
-    try {
-      const toastId = toast.loading("Decreaseing cart quantity!! ");
-      const result = await decreaseItemQuantity(payload);
-      //  *  for any  error
-      if (result?.error) {
-        const errorMessage = (result?.error as any)?.data?.message;
-        toast.error(errorMessage, {
-          duration: 1400,
-          id: toastId,
-        });
-      }
-      if (result?.data?.success) {
-        toast.success(result?.data?.message, { duration: 1500, id: toastId });
-        refetchCart();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong !!!", { duration: 1200 });
-    }
+    await reduceCartQuantity(payload, decreaseItemQuantity, refetchCart);
   };
 
   // ! function for deleting cart item
@@ -102,36 +84,39 @@ const UserCart = () => {
       productId: item?.product?._id,
     };
 
-    try {
-      const toastId = toast.loading("Deleting Cart Item!!");
+    await deleteCartItem(payload, removeCartItem, refetchCart);
+  };
 
-      const result = await removeCartItem(payload);
+  // ! for ordering item
+  const handleOrderItem = async () => {
+    if (userAddress?.data?.length < 1) {
+      toast.warning("Add address for ordering items !!!");
 
-      //  *  for any  error
-      if (result?.error) {
-        const errorMessage = (result?.error as any)?.data?.message;
-        toast.error(errorMessage, {
-          duration: 1400,
-          id: toastId,
-        });
-      }
+      navigate("/dashboard/add-address", {
+        state: location?.pathname,
+      });
+    } else {
+      console.log("item ordered successfully!!!");
 
-      if (result?.data?.success) {
-        toast.success(result?.data?.message, { duration: 1500, id: toastId });
-        refetchCart();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong !!!", { duration: 1200 });
+      const payload = {
+        address: userAddress?.data[0]?._id,
+      };
+
+      await orderItemFromCart(payload, orderFromCart);
     }
   };
+
+  useEffect(() => {
+    userAddressRefetch();
+  }, [userAddress, userAddressRefetch]);
 
   return (
     <>
       {(cartDataLoading ||
         cartItemAddingLoading ||
         decreaseCartLoading ||
-        removeCartItemLoading) && <FormSubmitLoading />}
+        removeCartItemLoading ||
+        orderingLoading) && <FormSubmitLoading />}
 
       <div className="ProductCartContainer">
         <div className="ProductCartWrapper   bg-gray-100 py-6 sm:py-8 lg:py-12">
@@ -167,7 +152,7 @@ const UserCart = () => {
 
             {/* bottom section strts  */}
             {/* totals - start  */}
-            {cartData?.data?.length === 0 ? (
+            {!cartData?.data ? (
               ""
             ) : (
               <div className="flex flex-col items-end gap-4  ">
@@ -204,7 +189,7 @@ const UserCart = () => {
 
                 <Button
                   className="  text-sm font-medium text-white  transition duration-100 bg-prime50 hover:bg-prime100 "
-                  //   onClick={() => navigate("/checkout")}
+                  onClick={() => handleOrderItem()}
                 >
                   Check out
                 </Button>
