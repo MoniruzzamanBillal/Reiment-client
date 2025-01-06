@@ -162,7 +162,7 @@ const ManageOrder = () => {
           <h3 className="brand text-2xl font-medium mb-4 "> Manage Order </h3>
 
           {/* table starts  */}
-          <div className="table">
+          <div className=" flex justify-center items-center ">
             <table className="w-full">
               <thead>
                 <tr>

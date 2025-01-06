@@ -77,7 +77,6 @@ const ManageProducts = () => {
     content = allProduct?.data?.map((product: TProduct) => (
       <tr key={product._id} className="border-b">
         <td className="p-4 text-center">{product.name}</td>
-        <td className="p-4 text-center">{product.price}</td>
         <td className="p-4 text-center">
           <img
             src={product.productImage as string}
@@ -85,6 +84,8 @@ const ManageProducts = () => {
             className="w-16 h-16 object-cover rounded-md "
           />
         </td>
+        <td className="p-4 text-center">{product.price}</td>
+
         <td className="p-4 text-center">
           {product?.size?.map((size: string) => (
             <p> {size} </p>
@@ -96,10 +97,10 @@ const ManageProducts = () => {
           ))}
         </td>
 
-        <td className="p-4 text-center">{product.material}</td>
+        <td className="p-4 text-center  ">{product.material}</td>
         <td className="p-4 text-center">{product.stockQuantity}</td>
 
-        <td className="p-4 text-center flex   gap-x-3 ">
+        <td className="p-4 text-center flex justify-center items-center gap-x-3   ">
           {/* update section  */}
           <div className="updateSection">
             <Link to={`/dashboard/update-product/${product?._id}`}>
@@ -138,21 +139,26 @@ const ManageProducts = () => {
             Add Product
           </Button>
 
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Sizes</th>
-                <th>Colors</th>
-                <th>Material</th>
-                <th>Stock</th>
-                <th>Action </th>
-              </tr>
-            </thead>
-            <tbody>{content}</tbody>
-          </table>
+          {/* table starts  */}
+          <div className=" flex justify-center items-center ">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Price</th>
+
+                  <th>Sizes</th>
+                  <th>Colors</th>
+                  <th>Material</th>
+                  <th>Stock</th>
+                  <th>Action </th>
+                </tr>
+              </thead>
+              <tbody>{content}</tbody>
+            </table>
+          </div>
+          {/* table ends  */}
         </div>
       </div>
     </>

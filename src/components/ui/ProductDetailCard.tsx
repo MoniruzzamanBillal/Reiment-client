@@ -30,6 +30,8 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
 
   // console.log(product?.stockQuantity);
 
+  console.log(userInfo);
+
   // ! for adding item in cart
   const handleAddToCart = async (product: TProduct) => {
     if (!userInfo) {
@@ -49,7 +51,6 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
 
   // ! for ordering item directly
   const handleOrderItem = async (product: TProduct) => {
-    console.log("order done !!!");
     if (!userInfo) {
       toast.warning("Login for ordering this item!!!");
       return;
@@ -106,7 +107,7 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
             {/* images - end  */}
 
             {/* {/* content - start  */}
-            <div className="md:py-8">
+            <div className="">
               {/* {/* name - start  */}
               <div className="mb-6 md:mb-10">
                 <h2 className="text-3xl font-semibold text-gray-800 lg:text-4xl">
@@ -197,13 +198,47 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
 
                     {/*  */}
                   </div>
-                ) : (
+                ) : userInfo?.userRole === "admin" ? (
                   <div className="updateSection">
                     <Link to={`/dashboard/update-product/${product?._id}`}>
                       <Button className="px-4 font-semibold text-sm bg-prime100 hover:bg-prime100 active:scale-95 duration-500">
                         Update
                       </Button>
                     </Link>
+                  </div>
+                ) : (
+                  <div className="btnSection flex items-center gap-x-4 ">
+                    {/*  */}
+
+                    <Button
+                      disabled={product?.stockQuantity === 0 ? true : false}
+                      className={`   text-center text-sm font-semibold text-white transition duration-100  ${
+                        product?.stockQuantity === 0
+                          ? "cursor-not-allowed bg-gray-800"
+                          : "bg-prime50 hover:bg-prime100 active:bg-prime50"
+                      }  `}
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      {product?.stockQuantity === 0
+                        ? "Out of Stock"
+                        : `  Add to cart  `}
+                    </Button>
+
+                    {/*  */}
+
+                    <Button
+                      disabled={product?.stockQuantity === 0 ? true : false}
+                      onClick={() => handleOrderItem(product)}
+                      className={`   text-center text-sm font-semibold text-white transition duration-100  ${
+                        product?.stockQuantity === 0
+                          ? "cursor-not-allowed bg-gray-800"
+                          : "bg-prime50 hover:bg-prime100 active:bg-prime50"
+                      }`}
+                    >
+                      Buy Now
+                    </Button>
+
+                    {/*  */}
                   </div>
                 )}
               </div>

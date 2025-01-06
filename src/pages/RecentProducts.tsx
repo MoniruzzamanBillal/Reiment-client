@@ -8,7 +8,7 @@ import { TProduct } from "@/types/product.types";
 const RecentProducts = () => {
   const { recentProducts } = useAppSelector((state) => state.recentProduct);
 
-  console.log(recentProducts);
+  // console.log(recentProducts);
 
   const { data: recentProductsData, isLoading } = useGetRecentProductQuery(
     recentProducts,

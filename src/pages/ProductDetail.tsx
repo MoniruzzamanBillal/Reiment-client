@@ -12,6 +12,8 @@ const ProductDetail = () => {
   const { data: productData, isLoading: productDataLoading } =
     useGetSingleProductsQuery(id as string, { skip: !id });
 
+  console.log(productDataLoading);
+
   //
   useEffect(() => {
     if (productData?.data?._id) {
@@ -21,12 +23,16 @@ const ProductDetail = () => {
   }, [productData?.data]);
 
   return (
-    <div className="ProductDetailContainer bg-gray-100  py-6 sm:py-8 lg:py-12 ">
-      <div className="bg-gray-100  py-6 sm:py-8 lg:py-12">
+    <div className="ProductDetailContainer bg-gray-100  py-8  ">
+      <div className="bg-gray-100   ">
         {productDataLoading && <ProductDetailCardSkeleton />}
 
         {/* product detail section starts  */}
-        <ProductDetailCard product={productData?.data} />
+
+        {!productDataLoading && (
+          <ProductDetailCard product={productData?.data} />
+        )}
+
         {/* product detail section ends */}
       </div>
     </div>
