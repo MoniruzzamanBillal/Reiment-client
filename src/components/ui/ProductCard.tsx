@@ -96,7 +96,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
       <div className="addToCartBtn  text-center pb-3  ">
         <Button
           onClick={() => handleAddToCart(product)}
-          disabled={productAddToCartLoading}
+          disabled={productAddToCartLoading || userInfo?.userRole === "admin"}
           className={`  ${
             productAddToCartLoading
               ? "cursor-not-allowed bg-gray-400"

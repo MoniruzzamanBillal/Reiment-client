@@ -11,7 +11,7 @@ const NoCartItem = () => {
         </h1>
 
         <button
-          className=" mt-6 bg-violet-600 hover:bg-violet-800 py-2 px-5 rounded text-white font-semibold "
+          className=" mt-6 bg-prime50 hover:bg-prime100 py-2 px-5 rounded text-white font-semibold "
           onClick={() => navigate("/products")}
         >
           Go back to shooping page

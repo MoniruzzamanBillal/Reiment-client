@@ -1,5 +1,6 @@
 import Wrapper from "@/components/shared/Wrapper";
 import { ProductCard } from "@/components/ui";
+import ProductSkeleton from "@/components/ui/ProductCardLoadingSceleton";
 import { useGetRecentProductQuery } from "@/redux/features/product/product.api";
 import { useAppSelector } from "@/redux/hook";
 import { TProduct } from "@/types/product.types";
@@ -9,7 +10,7 @@ const RecentProducts = () => {
 
   console.log(recentProducts);
 
-  const { data: recentProductsData } = useGetRecentProductQuery(
+  const { data: recentProductsData, isLoading } = useGetRecentProductQuery(
     recentProducts,
     {
       skip: !recentProducts,
@@ -24,6 +25,11 @@ const RecentProducts = () => {
         </h1>
 
         <div className="products  grid grid-cols-1 sm:grid-cols-2 xmd:grid-cols-3 xlm:grid-cols-4 gap-x-5 gap-y-8">
+          {isLoading &&
+            Array.from({ length: 4 })?.map((_, index) => (
+              <ProductSkeleton key={index} />
+            ))}
+
           {recentProductsData?.data &&
             recentProductsData?.data?.map((product: TProduct) => (
               <ProductCard product={product} key={product?._id} />
