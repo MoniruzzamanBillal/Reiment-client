@@ -2,6 +2,7 @@ import DeleteModal from "@/components/shared/DeleteModal";
 import { FormSubmitLoading } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import {
+  OrderDetailAddress,
   OrderDetailCustomerCard,
   OrderDetailPaymentCard,
   OrderDetailProduct,
@@ -41,8 +42,8 @@ const OrderDetail = () => {
   const [cancelOrder, { isLoading: cancelOrderLoading }] =
     useCancelOrderMutation();
 
-  //   console.log(orderData?.data);
-  console.log(orderData?.data?.status);
+  console.log(orderData?.data);
+  // console.log(orderData?.data?.status);
 
   // ! for approving order
   const handleApproveOrder = async (id: string) => {
@@ -109,12 +110,15 @@ const OrderDetail = () => {
                 )}
             </div>
 
-            <div className="dataBody mb-4 w-[90%] flex justify-between  ">
+            <div className=" py-6 dataBody   grid grid-cols-2 gap-y-3   ">
               {/* customer card  */}
               <OrderDetailCustomerCard customerData={orderData?.data?.user} />
 
               {/* payment card  */}
               <OrderDetailPaymentCard paymentData={orderData?.data?.payment} />
+
+              {/* address data  */}
+              <OrderDetailAddress addressData={orderData?.data?.address} />
             </div>
 
             {/* product card  */}

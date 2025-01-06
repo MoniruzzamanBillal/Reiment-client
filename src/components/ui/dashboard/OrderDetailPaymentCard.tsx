@@ -1,6 +1,12 @@
 import { MdOutlinePayment } from "react-icons/md";
 
-const OrderDetailPaymentCard = ({ paymentData }) => {
+type TPayment = {
+  amount: number;
+  paymentStatus: string;
+  transactionId: string;
+};
+
+const OrderDetailPaymentCard = ({ paymentData }: { paymentData: TPayment }) => {
   return (
     <div className="paymentCard">
       <h1 className=" font-medium text-lg mb-1 "> Payment Info </h1>

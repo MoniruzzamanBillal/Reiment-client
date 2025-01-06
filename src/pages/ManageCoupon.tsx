@@ -1,11 +1,6 @@
 import { Button } from "@/components/ui/button";
 
 const ManageCoupon = () => {
-  // ! for deleting coupon
-  const handleDeleteCoupon = (id: string) => {
-    console.log(id);
-  };
-
   return (
     <div className="ManageCouponContainer py-8 bg-gray-100 border border-gray-300 p-3 shadow rounded-md">
       <div className="ManageCouponWrapper">

@@ -1,4 +1,11 @@
-const OrderDetailCustomerCard = ({ customerData }) => {
+type TUser = {
+  name: string;
+  email: string;
+  profilePicture: string;
+  status: string;
+};
+
+const OrderDetailCustomerCard = ({ customerData }: { customerData: TUser }) => {
   return (
     <div className="customerCard  ">
       <h1 className=" font-medium text-lg mb-1 "> Customer </h1>
