@@ -55,7 +55,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   return (
     <div className="ProductCardContainer bg-white border border-gray-300 shadow-md group  rounded-md overflow-auto hover:shadow-lg hover:scale-[1.01] duration-200 ">
       <Link to={`/product/detail/${product?._id}`}>
-        <div className="ProductCardWrapper flex flex-col justify-between gap-y-1  ">
+        <div className="ProductCardWrapper flex flex-col justify-between gap-y-2  ">
           {/* product image section  */}
           <div className="prodImg  h-[15rem] relative  ">
             <img
@@ -75,25 +75,22 @@ const ProductCard = ({ product }: { product: TProduct }) => {
             </div>
           </div>
 
-          <div className="prodDes mb-1 p-3 group-hover:text-prime100  ">
+          <div className="prodDes mb-3  group-hover:text-prime100 w-[85%] m-auto  ">
             {/* prod name  */}
-            <h1 className=" font-medium mb-2 text-lg  text-center ">
-              {" "}
-              {product?.name}{" "}
-            </h1>
-
-            {/* prod price  */}
-            <div className="prodPrice  ">
-              <p className=" font-semibold  text-lg  text-center">
-                $ {product?.price}
-              </p>
-            </div>
+            <h1 className=" font-medium  text-xl   ">{product?.name}</h1>
           </div>
 
           {/*  */}
         </div>
       </Link>
-      <div className="addToCartBtn  text-center pb-3  ">
+      <div className="addToCartBtn w-[85%] m-auto  text-center py-4 flex items-center justify-between group  ">
+        {/* prod price  */}
+        <div className="prodPrice  ">
+          <p className=" font-semibold  text-xl  text-center group-hover:text-prime100">
+            $ {product?.price}
+          </p>
+        </div>
+
         <Button
           onClick={() => handleAddToCart(product)}
           disabled={productAddToCartLoading || userInfo?.userRole === "admin"}

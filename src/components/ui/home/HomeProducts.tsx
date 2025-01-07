@@ -37,7 +37,7 @@ const HomeProducts = () => {
 
           {allProducts?.data &&
             allProducts?.data?.map((product: TProduct) => (
-              <ProductCard product={product} />
+              <ProductCard product={product} key={product?._id} />
             ))}
         </div>
       </Wrapper>
