@@ -3,12 +3,14 @@ import {
   CommentInput,
   ProductDetailCard,
   ProductDetailCardSkeleton,
+  UserCommentCard,
 } from "@/components/ui";
 import { useGetSingleProductsQuery } from "@/redux/features/product/product.api";
 import { addRecentProduct } from "@/redux/features/recentProducts/recentproduct.slice";
 import {
   useCheckReviewEligibilityQuery,
   useGiveReviewMutation,
+  useProductReviewQuery,
 } from "@/redux/features/review/review.api";
 import { useAppDispatch } from "@/redux/hook";
 import { UseGetUser } from "@/utils/SharedFunction";
@@ -32,6 +34,9 @@ const ProductDetail = () => {
   const { data: reviewEligibility, refetch: checkEligibility } =
     useCheckReviewEligibilityQuery(id as string, { skip: !id });
 
+  const { data: productReview, isLoading: productReviewLoading } =
+    useProductReviewQuery(id as string, { skip: !id });
+
   const [giveReview, { isLoading: reviewGivingLoading }] =
     useGiveReviewMutation();
 
@@ -40,7 +45,8 @@ const ProductDetail = () => {
   // console.log(productDataLoading);
   // console.log(userInfo);
   // console.log(id);
-  console.log(reviewEligibility?.data);
+  // console.log(reviewEligibility?.data);
+  // console.log(productReview?.data);
 
   //   ! for adding comment
   const handleAddComment = async () => {
@@ -134,10 +140,10 @@ const ProductDetail = () => {
           )}
 
           {/* user comment card  section  */}
-          {/* {productData?.data?.review &&
-                  productData?.data?.review?.map((comment: any) => (
-                    <UserCommentCard review={comment} />
-                  ))} */}
+          {productReview?.data &&
+            productReview?.data?.map((comment: any) => (
+              <UserCommentCard review={comment} />
+            ))}
         </Wrapper>
         {/* review section ends  */}
 

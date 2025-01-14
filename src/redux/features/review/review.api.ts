@@ -23,9 +23,22 @@ const reviewApi = baseApi.injectEndpoints({
       },
     }),
 
+    // ! for getting product review
+    productReview: builder.query({
+      query: (id: string) => {
+        return {
+          url: `/review/product-review/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+
     //
   }),
 });
 
-export const { useCheckReviewEligibilityQuery, useGiveReviewMutation } =
-  reviewApi;
+export const {
+  useCheckReviewEligibilityQuery,
+  useGiveReviewMutation,
+  useProductReviewQuery,
+} = reviewApi;

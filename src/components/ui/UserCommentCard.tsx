@@ -11,7 +11,7 @@ const UserCommentCard = ({ review }: { review: any }) => {
 
   //   console.log(userInfo);
 
-  // console.log(review);
+  console.log(review?.userId);
   // console.log(review);
 
   const handleEditClick = () => {
@@ -81,9 +81,7 @@ const UserCommentCard = ({ review }: { review: any }) => {
   };
 
   return (
-    <>
-      {/* {reviewUpdateLoading && <FormSubmitLoading />} */}
-
+    <div className="mainContainer">
       <div className="UserCommentCardContainer  my-3 p-3 rounded-md bg-gray-50 border border-gray-300   ">
         <div className="UserCommentWrapper   ">
           {/* writer info starts  */}
@@ -92,7 +90,7 @@ const UserCommentCard = ({ review }: { review: any }) => {
             <div className="writerImg   ">
               <img
                 className=" w-8 h-8 xsm:w-9 xsm:h-9 sm:w-10 sm:h-10 rounded-full"
-                src={review?.user?.profileImg}
+                src={review?.userId?.profilePicture}
                 alt="user avatar"
               />
             </div>
@@ -102,7 +100,7 @@ const UserCommentCard = ({ review }: { review: any }) => {
 
             <div className="writerName   ">
               <p className=" text-gray-900 font-semibold text-xs sm:text-sm ">
-                {review?.user?.username}
+                {review?.userId?.name}
               </p>
               <p className=" text-gray-600 font-medium text-xs  ">
                 {format(new Date(review?.createdAt as string), "dd-MMMM-yyyy")}
@@ -173,7 +171,7 @@ const UserCommentCard = ({ review }: { review: any }) => {
           {/*  */}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
