@@ -1,4 +1,5 @@
 export { default as CartItemCard } from "./CartItemCard";
+export { default as CommentInput } from "./CommentInput";
 export { default as FormSubmitLoading } from "./FormSubmitLoading";
 export { default as NoCartItem } from "./NoCartItem";
 export { default as NoProduct } from "./NoProduct";
@@ -7,3 +8,4 @@ export { default as ProductDetailCard } from "./ProductDetailCard";
 export { default as ProductDetailCardSkeleton } from "./ProductDetailCardSkeleton";
 export { default as TableDataError } from "./TableDataError";
 export { default as TableDataLoading } from "./TableDataLoading";
+export { default as UserCommentCard } from "./UserCommentCard";

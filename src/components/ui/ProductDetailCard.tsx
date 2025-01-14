@@ -30,7 +30,7 @@ const ProductDetailCard = ({ product }: { product: TProduct }) => {
 
   // console.log(product?.stockQuantity);
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   // ! for adding item in cart
   const handleAddToCart = async (product: TProduct) => {

@@ -53,7 +53,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   };
 
   return (
-    <div className="ProductCardContainer bg-white border border-gray-300 shadow-md group  rounded-md overflow-auto hover:shadow-lg hover:scale-[1.01] duration-200 ">
+    <div className="ProductCardContainer bg-white border border-gray-300 shadow-md group  rounded-md overflow-auto hover:shadow-lg hover:scale-[1.01] duration-200 flex flex-col justify-between  ">
       <Link to={`/product/detail/${product?._id}`}>
         <div className="ProductCardWrapper flex flex-col justify-between gap-y-2  ">
           {/* product image section  */}
@@ -77,7 +77,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 
           <div className="prodDes mb-3  group-hover:text-prime100 w-[85%] m-auto  ">
             {/* prod name  */}
-            <h1 className=" font-medium  text-xl   ">{product?.name}</h1>
+            <h1 className=" font-medium  text-lg   ">{product?.name}</h1>
           </div>
 
           {/*  */}
@@ -87,7 +87,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         {/* prod price  */}
         <div className="prodPrice  ">
           <p className=" font-semibold  text-xl  text-center group-hover:text-prime100">
-            $ {product?.price}
+            TK {product?.price}
           </p>
         </div>
 

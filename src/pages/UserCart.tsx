@@ -32,6 +32,8 @@ const UserCart = () => {
   const { data: userAddress, refetch: userAddressRefetch } =
     useGetUserAddressQuery(undefined);
 
+  console.log(cartData?.data);
+
   const [addItemQuantity, { isLoading: cartItemAddingLoading }] =
     useAddItemQuantityMutation();
 
@@ -44,7 +46,7 @@ const UserCart = () => {
   const [orderFromCart, { isLoading: orderingLoading }] =
     useOrderFromCartMutation();
 
-  console.log(cartData?.data?.cartItems?.length);
+  // console.log(cartData?.data?.cartItems);
 
   const totalCartPrice = calculateCartPrice(cartData?.data?.cartItems);
 
@@ -60,7 +62,7 @@ const UserCart = () => {
 
   // ! function for reducing cart quantity
   const handleReduceQuantity = async (item: TCartItem) => {
-    if (item?.quantity <= 1) {
+    if (item?.quantity <= 2) {
       return;
     }
 
