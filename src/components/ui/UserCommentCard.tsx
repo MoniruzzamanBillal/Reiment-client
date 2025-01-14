@@ -1,18 +1,33 @@
+import {
+  useProductReviewQuery,
+  useUpdateReviewMutation,
+} from "@/redux/features/review/review.api";
 import { UseGetUser } from "@/utils/SharedFunction";
 import { format } from "date-fns";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { toast } from "sonner";
 
 const UserCommentCard = ({ review }: { review: any }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(review?.comment);
+  const [rating, setRating] = useState(0);
 
   const userInfo = UseGetUser();
 
-  //   console.log(userInfo);
+  const { refetch: productReviewRefetch } = useProductReviewQuery(
+    review?.productId as string,
+    { skip: !review?.productId }
+  );
 
-  console.log(review?.userId);
+  const [updateReview, { isLoading: reviewUpdateLoading }] =
+    useUpdateReviewMutation();
+
+  // console.log(userInfo);
+
+  // console.log(review?.userId);
   // console.log(review);
+  // console.log(review?.productId);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -20,49 +35,48 @@ const UserCommentCard = ({ review }: { review: any }) => {
 
   // ! for updating comment
   const handleSaveClick = async () => {
-    console.log(editedContent);
-    console.log(review?.id);
+    const payload = { reviewId: review?._id, comment: editedContent, rating };
 
-    //   try {
-    const payload = { reviewId: review?.id, comment: editedContent };
+    try {
+      const taostId = toast.loading("Updating Review....");
+      const result = await updateReview(payload);
 
-    // const taostId = toast.loading("Updating Review....");
-    // const result = await updateReview(payload);
+      //  *  for any  error
+      if (result?.error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const errorMessage = (result?.error as any)?.data?.message;
+        console.log(errorMessage);
+        toast.error(errorMessage, {
+          id: taostId,
+          duration: 1400,
+        });
+      }
 
-    //  *  for any  error
-    // if (result?.error) {
-    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //   const errorMessage = (result?.error as any)?.data?.message;
-    //   console.log(errorMessage);
-    //   toast.error(errorMessage, {
-    //     id: taostId,
-    //     duration: 1400,
-    //   });
-    // }
+      // * for successful insertion
+      if (result?.data) {
+        productReviewRefetch();
+        setIsEditing(false);
+        setRating(0);
+        const successMsg = result?.data?.message;
 
-    // * for successful insertion
-    // if (result?.data) {
-    //   productDataRefetch();
-    //   setIsEditing(false);
-    //   const successMsg = result?.data?.message;
-
-    //   toast.success(successMsg, {
-    //     id: taostId,
-    //     duration: 1000,
-    //   });
-    // }
-    //   } catch (error) {
-    //     console.log(error);
-    //     toast.error("Something went wrong while updating profile!!!", {
-    //       duration: 1400,
-    //     });
-    //   }
+        toast.success(successMsg, {
+          id: taostId,
+          duration: 1000,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong while updating profile!!!", {
+        duration: 1400,
+      });
+    }
   };
 
   // ! for canceling updadteing edit
   const handleCancelClick = () => {
     setIsEditing(false);
     setEditedContent(review?.comment);
+    setRating(0);
   };
 
   //   ! fucntion for rendering star
@@ -112,9 +126,12 @@ const UserCommentCard = ({ review }: { review: any }) => {
           {/* writer info ends */}
 
           {/* review star starts  */}
-          <div className="reviewStar paragraphFont text-sm sm:text-base mb-2 flex gap-x-.5 ">
-            {renderStars()}
-          </div>
+          {!isEditing && (
+            <div className="reviewStar paragraphFont text-sm sm:text-base mb-2 flex gap-x-.5 ">
+              {renderStars()}
+            </div>
+          )}
+
           {/* review star ends  */}
 
           {/* User comment */}
@@ -127,6 +144,27 @@ const UserCommentCard = ({ review }: { review: any }) => {
                   onChange={(e) => setEditedContent(e.target.value)}
                   className="  border border-gray-300 rounded-md p-1  "
                 />
+
+                {/* Rating Section */}
+                <div className=" pt-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Rating (1-5)
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setRating(star)}
+                        className={`text-2xl ${
+                          rating >= star ? "text-yellow-400" : "text-gray-300"
+                        }`}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : (
               <p> {review?.comment} </p>
@@ -136,7 +174,7 @@ const UserCommentCard = ({ review }: { review: any }) => {
 
           {/* Edit delete button section */}
 
-          {review?.user?.id === userInfo?.userId && (
+          {review?.userId?._id === userInfo?.userId && (
             <div className="mt-4 editDeleteBtn text-xs flex items-center gap-x-4">
               {isEditing ? (
                 <>

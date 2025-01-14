@@ -33,6 +33,17 @@ const reviewApi = baseApi.injectEndpoints({
       },
     }),
 
+    // ! for updating review
+    updateReview: builder.mutation({
+      query: (payload) => {
+        return {
+          url: "/review/update-review",
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+
     //
   }),
 });
@@ -41,4 +52,5 @@ export const {
   useCheckReviewEligibilityQuery,
   useGiveReviewMutation,
   useProductReviewQuery,
+  useUpdateReviewMutation,
 } = reviewApi;

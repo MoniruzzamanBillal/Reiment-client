@@ -34,8 +34,11 @@ const ProductDetail = () => {
   const { data: reviewEligibility, refetch: checkEligibility } =
     useCheckReviewEligibilityQuery(id as string, { skip: !id });
 
-  const { data: productReview, isLoading: productReviewLoading } =
-    useProductReviewQuery(id as string, { skip: !id });
+  const {
+    data: productReview,
+    isLoading: productReviewLoading,
+    refetch: productReviewRefetch,
+  } = useProductReviewQuery(id as string, { skip: !id });
 
   const [giveReview, { isLoading: reviewGivingLoading }] =
     useGiveReviewMutation();
@@ -45,7 +48,7 @@ const ProductDetail = () => {
   // console.log(productDataLoading);
   // console.log(userInfo);
   // console.log(id);
-  // console.log(reviewEligibility?.data);
+  console.log(reviewEligibility?.data);
   // console.log(productReview?.data);
 
   //   ! for adding comment
@@ -86,6 +89,7 @@ const ProductDetail = () => {
       if (result?.data) {
         productDataRefetch();
         checkEligibility();
+        productReviewRefetch();
         const successMsg = result?.data?.message;
 
         toast.success(successMsg, {
@@ -141,8 +145,8 @@ const ProductDetail = () => {
 
           {/* user comment card  section  */}
           {productReview?.data &&
-            productReview?.data?.map((comment: any) => (
-              <UserCommentCard review={comment} />
+            productReview?.data?.map((review: any) => (
+              <UserCommentCard review={review} />
             ))}
         </Wrapper>
         {/* review section ends  */}
